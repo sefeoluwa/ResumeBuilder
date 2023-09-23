@@ -3,7 +3,7 @@ import { FaTrash } from 'react-icons/fa'
 function centerTopBar() {
   return (
     <>
-    <div className="flex w-[100%] justify-between bg-white h-12 rounded-[10px] p-2">
+    <div className="flex w-[100%] justify-between bg-white h-12 rounded-[10px] p-2 sticky top-[10px]">
       <button className='flex justify-center w-[45%] pt-1'> 
         <FaTrash style= {{
           color: '#d21404',
