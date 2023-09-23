@@ -1,8 +1,15 @@
-
+import { CenterTopBar, Education, Experience, LeftPanel, PersonalDeets,Skills } from "./components"
 
 function App() {
   return (
-    <div>App</div>
+    <>
+    <LeftPanel />
+    <CenterTopBar />
+    <PersonalDeets />
+    <Education />
+    <Skills />
+    <Experience />
+    </>
   )
 }
 
