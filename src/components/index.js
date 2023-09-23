@@ -9,6 +9,7 @@ import CustomizeLook from "./CustomizeLook";
 import LayOut from "./LayOut";
 import Color from "./Color";
 import Fonts from "./Fonts";
+import Resume from "./Resume";
 
 
 export {
@@ -23,4 +24,5 @@ export {
     LayOut,
     Color,
     Fonts,
+    Resume,
 }
