@@ -2,14 +2,16 @@ import { CenterTopBar,  LeftPanel, EditContent, CustomizeLook, Resume } from "./
 
 function App() {
   return (
-    <div className="flex p-10 justify-between">
-    <LeftPanel />
-    <div className="w-[30vw]">
-    <CenterTopBar />
-    <EditContent />
-    <CustomizeLook />
-    </div>
-    <Resume />
+    <div className="flex justify-between">
+      <div className="flex p-8 justify-between w-[48vw]" >
+        <LeftPanel />
+        <div className="w-[30vw] ml-5">
+          <CenterTopBar />
+          <EditContent />
+          <CustomizeLook />
+        </div>
+      </div>
+      <Resume />
     </div>
   )
 }
