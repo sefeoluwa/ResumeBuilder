@@ -1,13 +1,20 @@
+/* eslint-disable react/prop-types */
 import { FaRegNewspaper } from 'react-icons/fa';
 import { BsBorderStyle } from 'react-icons/bs';
 import { useState } from 'react';
 
-function LeftPanel() {
+function LeftPanel({ onContentButtonClick, onCustomizeButtonClick }) {
   const [activeButton, setActiveButton] = useState('content');
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
+    if (buttonName === 'content') {
+      onContentButtonClick();
+    } else if (buttonName === 'customize') {
+      onCustomizeButtonClick();
+    }
   };
+
 
   return (
     <div className='flex flex-col justify-between h-[15vh] p-2 ml-6  w-[13vw] bg-secondary font-bold'>
