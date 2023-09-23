@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="flex p-10 justify-between">
     <LeftPanel />
-    <div className="">
+    <div className="w-[30vw]">
     <CenterTopBar />
     <EditContent />
     <CustomizeLook />
