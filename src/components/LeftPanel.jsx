@@ -10,7 +10,7 @@ function LeftPanel() {
   };
 
   return (
-    <div className='flex flex-col justify-between h-[15vh] p-2 w-[10vw] bg-secondary'>
+    <div className='flex flex-col justify-between h-[15vh] p-2 ml-6  w-[13vw] bg-secondary font-bold'>
       <button
         className={`flex flex-col items-center rounded-[10px] ${activeButton === 'content' ? 'bg-primary' : ''}`}
         onClick={() => handleButtonClick('content')}
