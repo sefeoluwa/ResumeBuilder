@@ -2,10 +2,10 @@ import { CenterTopBar,  LeftPanel, EditContent, CustomizeLook, Resume } from "./
 
 function App() {
   return (
-    <div className="flex justify-between">
-      <div className="flex p-8 justify-between w-[48vw]" >
+    <div className="flex justify-between flex-wrap">
+      <div className="flex flex-wrap gap-5 p-8 justify-between w-[48vw]" >
         <LeftPanel />
-        <div className="w-[30vw] ml-5">
+        <div className="w-[300px] ml-5">
           <CenterTopBar />
           <EditContent />
           <CustomizeLook />
