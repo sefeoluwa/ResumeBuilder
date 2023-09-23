@@ -9,7 +9,7 @@ function centerTopBar() {
           color: '#d21404',
           marginTop: '3px'
         }} />
-        <p className='text-[#d21404] ml-2 text-[16px]'>Clear</p>
+        <p className='text-delete ml-2 text-[16px]'>Clear</p>
         </button>
       <button className='w-[45%] bg-[#f2f2f2] rounded-[10px] text-[16px]'>Load Example</button>
     </div>
