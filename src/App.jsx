@@ -16,12 +16,12 @@ function App() {
 
   return (
     <div className="flex justify-between flex-wrap">
-      <div className="flex flex-wrap gap-5 p-8 justify-between w-[48vw]">
+      <div className="flex flex-wrap gap-5 p-8 justify-between w-[50vw]">
         <LeftPanel
           onContentButtonClick={handleContentButtonClick}
           onCustomizeButtonClick={handleCustomizeButtonClick}
         />
-        <div className="w-[300px] ml-5">
+        <div className="w-[400px] ml-5">
           <CenterTopBar />
           {activeSection === 'content' && <EditContent />}
           {activeSection === 'customize' && <CustomizeLook />}
