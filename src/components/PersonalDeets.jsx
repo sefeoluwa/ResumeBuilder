@@ -32,22 +32,22 @@ function personalDeets() {
     <form action="" className='mt-4 pl-2'>
     <div className="flex flex-col gap-2">
       <label htmlFor="title">LinkedIn <span className='text-[11px] text-gray-500 font-bold' >optional</span></label>
-        <input type="text" name="title" id="title" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' placeholder="https://www.linkedin.com/in/johndoe/"/>
+        <input type="url" name="title" id="title" className='bg-primary outline-none pl-2 rounded-[10purl-[14px] h-[40px]' placeholder="https://www.linkedin.com/in/johndoe/"/>
     </div>
 
     <div className="flex flex-col gap-2 mt-3">
       <label htmlFor="github">GitHub <span className='text-[11px] text-gray-500 font-bold' >optional</span></label>
-        <input type="text" name="github" id="github" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' placeholder="https://www.github.com/johndoe/"/>
+        <input type="url" name="github" id="github" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' placeholder="https://www.github.com/johndoe/"/>
     </div>
 
     <div className="flex flex-col gap-2 mt-3">
       <label htmlFor="twitter">Twitter <span className='text-[11px] text-gray-500 font-bold' >optional</span></label>
-        <input type="text" name="twitter" id="twitter" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' placeholder="https://www.linkedin.com/in/johndoe/"/>
+        <input type="url" name="twitter" id="twitter" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' placeholder="https://www.linkedin.com/in/johndoe/"/>
     </div>
 
     <div className="flex flex-col gap-2 mt-3">
       <label htmlFor="website">Website <span className='text-[11px] text-gray-500 font-bold' >optional</span></label>
-        <input type="text" name="website" id="website" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' placeholder="https://www.johndoe.com"/>
+        <input type="url" name="website" id="website" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' placeholder="https://www.johndoe.com"/>
     </div>
     </form>
     </div>
