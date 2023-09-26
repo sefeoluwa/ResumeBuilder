@@ -1,9 +1,37 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react/prop-types */
 import { GiSkills } from 'react-icons/gi' 
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd  } from 'react-icons/gr'
 import { BsCheckLg } from 'react-icons/bs'
+import { useState } from 'react'
 
-const SkillForm = () => {
+const SkillForm = ({ onSaveSkill }) => {
+  const [skillData, setSkillData] = useState({
+    skill: '',
+    subSkill: '',
+    skillLevel: 'select',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setSkillData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    // Call the onSaveSkill function and pass the skillData
+    onSaveSkill(skillData);
+    // Reset the form or close the SkillForm as needed
+    setSkillData({
+      skill: '',
+      subSkill: '',
+      skillLevel: 'select',
+    });
+  };
+
   return(
    <div className='p-3 bg-secondary mt-4 rounded-[10px] pb-6'>
     <h3 className='font-bold text-[20px]'>Create Skill</h3>
@@ -13,20 +41,44 @@ const SkillForm = () => {
       <label htmlFor="skill">Skill 
       <span className='text-[red] ml-1'>*</span>
       </label>
-      <input type="text" id='skill' aria-label='skill' name='skill' required placeholder='Enter skill' className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' />
-      </div>
+      <input
+              type="text"
+              id="skill"
+              aria-label="skill"
+              name="skill"
+              required
+              placeholder="Enter skill"
+              className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]'
+              value={skillData.skill}
+              onChange={handleInputChange} // Bind the input change handler
+            />
+          </div>
 
       <div className="flex flex-col gap-2 mt-4">
       <label htmlFor="subSkill">Information / Sub-skills 
       <span className='text-[11px] text-gray-500 font-bold ml-2'>recommended</span>
       </label>
-      <textarea id='subSkill' aria-label='subSkill' name='subSkill' required placeholder='Enter more information or sub-skills' className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px] pt-2' />
+      <textarea id='subSkill' 
+      aria-label='subSkill' 
+      name='subSkill' 
+      required 
+      placeholder='Enter more information or sub-skills' 
+      value={skillData.subSkill}
+      onChange={handleInputChange}
+      className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px] pt-2' 
+      />
       </div>
     
 
 <div className="flex flex-col gap-2 mt-4">
 <label htmlFor="skillLevel">Select skill Level</label>
-        <select name='skillLevel' id='skillLevel' required className='outline-none p-[10px] rounded-[10px] border-none cursor-pointer'>
+        <select name='skillLevel' 
+        id='skillLevel' 
+        required 
+        value={skillData.skillLevel}
+        onChange={handleInputChange}
+        className='outline-none p-[10px] rounded-[10px] border-none cursor-pointer'
+        >
         <option value="select" className='select'>Skill level</option>
         <option value="novice">Novice</option>
         <option value="beginner">Beginner</option>
@@ -39,7 +91,7 @@ const SkillForm = () => {
     </div>
     <div className="bg-secondary flex justify-end mt-6">
       <button className='mr-14 font-bold'>Cancel</button>
-      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5'><BsCheckLg /> 
+      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' onClick={handleSave}><BsCheckLg /> 
       <p></p>
       </button>
     </div>
@@ -48,6 +100,22 @@ const SkillForm = () => {
 }
 
 function skills() {
+
+  const [showSkillForm, setShowSkillForm] = useState(false);
+  const [skills, setSkills] = useState([]); // Array to store skills
+
+  const handleAddClick = () => {
+    setShowSkillForm(true);
+  };
+
+  const handleSaveSkill = (newSkill) => {
+    // Update the skills array with the new skill data
+    setSkills((prevSkills) => [...prevSkills, newSkill]);
+    // Hide the SkillForm
+    setShowSkillForm(false);
+  };
+
+
   return (
     <div className='p-3 bg-secondary mt-4 rounded-[10px] pb-6'>
      <button className="flex justify-between pl-2 pt-3 w-full">
@@ -65,9 +133,17 @@ function skills() {
     </button>
 
     <div className="flex justify-center">
-    <button className='flex justify-center items-center border-primary border-solid border-[5px] w-[40%] h-[45px] rounded-[30px] font-bold'> <GrAdd /> Skills </button>
+    <button className='flex justify-center items-center border-primary border-solid border-[5px] w-[40%] h-[45px] rounded-[30px] font-bold' onClick={handleAddClick}> <GrAdd /> Add</button>
     </div>
    
+    {showSkillForm && (
+        <SkillForm onSaveSkill={handleSaveSkill} />
+      )}
+
+      {/* Display the list of skills */}
+      {skills.map((skill, index) => (
+        <div key={index}>{/* Render each skill here */}</div>
+      ))}
     </div>
    
   )
