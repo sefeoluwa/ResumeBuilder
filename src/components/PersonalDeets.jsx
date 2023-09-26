@@ -3,7 +3,7 @@ import { VscTriangleDown } from 'react-icons/vsc'
 function personalDeets() {
   return (
     <>
-    <div className='p-3 bg-secondary mt-4 rounded-[10px]'>
+    <div className='p-3 pb-6 bg-secondary mt-4 rounded-[10px]'>
     <button className='font-bold text-[20px] pl-2 flex justify-between w-full'>Personal Details <span > <VscTriangleDown /></span></button>
 
     <form action="" className='mt-4 pl-2'>
@@ -29,7 +29,7 @@ function personalDeets() {
     </div>
     </form>   
     </div>
-<div className="p-3 bg-secondary mt-4 rounded-[10px]">
+<div className="p-3 pb-6 bg-secondary mt-4 rounded-[10px]">
 <button className='w-full font-bold text-[18px] pl-2 mt-3 flex justify-between'>Social Profiles <span > <VscTriangleDown /></span></button>
 <form action="" className='mt-4 pl-2'>
 <div className="flex flex-col gap-2">
