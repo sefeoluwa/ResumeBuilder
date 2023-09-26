@@ -17,6 +17,32 @@ function education() {
 
       <VscTriangleDown className='' />
     </button>
+
+    <form action="" className='mt-4 pl-2'>
+    <div className="flex flex-col gap-2">
+      <label htmlFor="degree">Degree</label>
+        <input type="text" name="degree" id="degree" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' required placeholder='Enter Degree / Field of Study'/>
+    </div>
+    <div className="flex flex-col gap-2 mt-3">
+      <label htmlFor="school">School</label>
+        <input type="text" name="school" id="school" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' placeholder='Enter School / University' />
+    </div>
+    <div className="flex flex-col gap-2 mt-3">
+      <label htmlFor="country">Country</label>
+        <input type="" name="country" id="country" className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' autoComplete='country-name' placeholder='Enter Country'/>
+    </div>
+ 
+   <div className="flex justify-between pr-2">
+   <div className=" w-[45%] flex flex-col gap-2 mt-3">
+      <label htmlFor="title">Start Date</label>
+        <input type="date" name="title" id="title" className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'/>
+    </div>
+    <div className="w-[45%] flex flex-col gap-2 mt-3">
+      <label htmlFor="title">End Date</label>
+        <input type="date" name="title" id="title" className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'/>
+    </div>
+   </div>
+    </form>
     </div>
   )
 }
