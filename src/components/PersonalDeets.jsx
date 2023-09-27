@@ -32,7 +32,6 @@ const handleSave = () => {
     address: '',
     title: '',
   });
-  console.log(personalData)
   onClose()
 };
 
