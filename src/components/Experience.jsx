@@ -10,9 +10,11 @@ import { BsCheckLg } from 'react-icons/bs';
 
 const ExperienceForm = ({ onSaveExperience, onClose }) => {
   const [experienceData, setExperienceData] = useState({
-    experience: '',
-    subExperience: '',
-    experienceLevel: 'select',
+    role: '',
+    company: '',
+    start: '',
+    end: '',
+    description: '',
   });
 
   const handleInputChange = (e) => {
@@ -28,20 +30,24 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
     onSaveExperience(experienceData);
     // Reset the form or close the experienceForm as needed
     setExperienceData({
-      experience: '',
-      subExperience: '',
-      experienceLevel: 'select',
+      role: '',
+      company: '',
+      start: '',
+      end: '',
+      description: '',
     });
+    console.log(experienceData)
   };
 
   const handleCancel = () => {
     // Reset the form
     setExperienceData({
-      experience: '',
-      subExperience: '',
-      experienceLevel: 'select', // Reset the experience level to the default value
+      role: '',
+      company: '',
+      start: '',
+      end: '',
+      description: '',
     });
-    // Close the form
     onClose();
   };
 
@@ -51,55 +57,78 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
     <div className="mt-4">
     <form action="">
        <div className="flex flex-col gap-2">
-      <label htmlFor="experience">experience 
+      <label htmlFor="role">Job Title 
       <span className='text-[red] ml-1'>*</span>
       </label>
       <input
               type="text"
-              id="experience"
-              aria-label="experience"
-              name="experience"
+              id="role"
+              aria-label="role"
+              name="role"
               required
-              placeholder="Enter experience"
+              placeholder="Enter job title"
               className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]'
-              value={experienceData.experience}
-              onChange={handleInputChange} // Bind the input change handler
+              value={experienceData.role}
+              onChange={handleInputChange} 
             />
           </div>
 
+          <div>
+          <label htmlFor="company">Company</label>
+          <input
+              type="text"
+              id="company"
+              aria-label="company"
+              name="company"
+              required
+              placeholder="Enter company name"
+              className='bg-primary outline-none w-full pl-2 rounded-[10px] text-[14px] h-[40px]'
+              value={experienceData.company}
+              onChange={handleInputChange} 
+            />
+          </div>
+
+          <div className="flex justify-between pr-2">
+   <div className=" w-[45%] flex flex-col gap-2 mt-3">
+      <label htmlFor="start">Start Date</label>
+        <input 
+        type="date" 
+        name="start" 
+        id="start" 
+        className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
+        value={experienceData.start}
+        onChange={handleInputChange} 
+        />
+    </div>
+    <div className="w-[45%] flex flex-col gap-2 mt-3">
+      <label htmlFor="end">End Date</label>
+        <input 
+        type="date" 
+        name="end" 
+        id="end" 
+        value={experienceData.end}
+        className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
+        onChange={handleInputChange} 
+        />
+    </div>
+   </div>
+
       <div className="flex flex-col gap-2 mt-4">
-      <label htmlFor="subexperience">Information / Sub-experiences 
+      <label htmlFor="description">Description
       <span className='text-[11px] text-gray-500 font-bold ml-2'>recommended</span>
       </label>
-      <textarea id='subexperience' 
-      aria-label='subexperience' 
-      name='subexperience' 
+      <textarea id='description' 
+      aria-label='description' 
+      name='description' 
       required 
-      placeholder='Enter more information or sub-experiences' 
-      value={experienceData.subexperience}
+      placeholder='Describe your role' 
+      value={experienceData.description}
       onChange={handleInputChange}
-      className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px] pt-2' 
+      className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[100px] pt-2' 
       />
       </div>
     
 
-<div className="flex flex-col gap-2 mt-4">
-<label htmlFor="experienceLevel">Select experience Level</label>
-        <select name='experienceLevel' 
-        id='experienceLevel' 
-        required 
-        value={experienceData.experienceLevel}
-        onChange={handleInputChange}
-        className='outline-none p-[10px] rounded-[10px] border-none cursor-pointer'
-        >
-        <option value="select" className='select'>experience level</option>
-        <option value="novice">Novice</option>
-        <option value="beginner">Beginner</option>
-        <option value="experienceful">experienceful</option>
-        <option value="experienced">Experienced</option>
-        <option value="expert">Expert</option>
-        </select>
-</div>
     </form>
     </div>
     <div className="bg-secondary flex justify-end mt-6">
