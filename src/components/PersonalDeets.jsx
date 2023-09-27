@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { VscTriangleDown } from 'react-icons/vsc'
 import { BsPersonBoundingBox } from 'react-icons/bs'
+import { FaLink } from 'react-icons/fa'
 import { useState } from 'react'
 
 const PersonalCard = () => {
@@ -98,8 +99,16 @@ const Socials = () => {
       className='w-full font-bold text-[18px] pl-2 mt-3 flex justify-between'
       onClick={handleArrowBtnClick}
       >
-      Social Profiles 
-      <span > <VscTriangleDown /></span>
+       <div className='flex font-bold text-[18px] mt-[-4px] pb-2'> 
+        <FaLink
+        style={{
+          height: '25px',
+          width: '30px'
+        }}
+        /> 
+        <h3 className='pl-2'>Links</h3>
+      </div>
+      <VscTriangleDown className='' />
       </button>
 
       {socialCardVisible && <SocialsCard />}
