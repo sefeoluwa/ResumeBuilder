@@ -2,10 +2,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { VscTriangleDown } from 'react-icons/vsc'
-import { FaBriefcase } from 'react-icons/fa'
+import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
 import { useState } from 'react';
-import { BsCheckLg } from 'react-icons/bs';
+
 
 
 const ExperienceForm = ({ onSaveExperience, onClose }) => {
@@ -133,7 +133,7 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
     </div>
     <div className="bg-secondary flex justify-end mt-6">
       <button className='mr-14 font-bold' onClick={handleCancel} >Cancel</button>
-      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' onClick={handleSave}><BsCheckLg /> 
+      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' onClick={handleSave}><FaCheck /> 
       <p></p>
       </button>
     </div>

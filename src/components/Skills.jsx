@@ -3,7 +3,7 @@
 import { GiSkills } from 'react-icons/gi' 
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd  } from 'react-icons/gr'
-import { BsCheckLg } from 'react-icons/bs'
+import { FaCheck } from 'react-icons/fa'
 import { useState } from 'react'
 
 const SkillForm = ({ onSaveSkill, onClose }) => {
@@ -102,7 +102,7 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
     </div>
     <div className="bg-secondary flex justify-end mt-6">
       <button className='mr-14 font-bold' onClick={handleCancel} >Cancel</button>
-      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' onClick={handleSave}><BsCheckLg /> 
+      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' onClick={handleSave}><FaCheck /> 
       <p></p>
       </button>
     </div>
