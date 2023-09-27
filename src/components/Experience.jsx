@@ -26,9 +26,7 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
   };
 
   const handleSave = () => {
-    // Call the onSaveexperience function and pass the experienceData
     onSaveExperience(experienceData);
-    // Reset the form or close the experienceForm as needed
     setExperienceData({
       role: '',
       company: '',
@@ -40,7 +38,6 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
   };
 
   const handleCancel = () => {
-    // Reset the form
     setExperienceData({
       role: '',
       company: '',
@@ -141,9 +138,9 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
   )
 }
 
-function experience() {
+const ExperienceSection = () => {
   const [showExperienceForm, setShowExperienceForm] = useState(false);
-  const [experiences, setExperiences] = useState([]); // Array to store Experiences
+  const [experiences, setExperiences] = useState([]); 
 
   const handleAddClick = () => {
     setShowExperienceForm(true);
@@ -155,29 +152,13 @@ function experience() {
 
 
   const handleSaveExperience = (newExperience) => {
-    // Update the Experiences array with the new Experience data
     setExperiences((prevExperiences) => [...prevExperiences, newExperience]);
-    // Hide the ExperienceForm
     setShowExperienceForm(false);
   };
 
 
   return (
-    <div className='p-3 bg-secondary mt-4 rounded-[10px] pb-6'>
-     <button className="flex justify-between pl-2 pt-3 w-full">
-      <div className='flex font-bold text-[18px] mt-[-4px] pb-2'> 
-        <FaBriefcase
-        style={{
-          height: '30px',
-          width: '30px'
-        }}
-        /> 
-        <h3 className='pl-2'>Experiences</h3>
-      </div>
-
-      <VscTriangleDown className='' />
-    </button>
-
+    <div className=''>
     <div className="flex justify-center">
     <button className='flex justify-center items-center border-primary border-solid border-[5px] w-[40%] h-[45px] rounded-[30px] font-bold' onClick={handleAddClick}> <GrAdd /> Add</button>
     </div>
@@ -186,7 +167,7 @@ function experience() {
         <ExperienceForm onSaveExperience={handleSaveExperience} onClose={handleCloseForm} />
       )}
 
-      {/* Display the list of Experiences */}
+      
       {experiences.map((experience, index) => (
         <div key={index}>{/* Render each Experience here */}</div>
       ))}
@@ -196,4 +177,35 @@ function experience() {
   )
 }
 
-export default experience
+function Experience() {
+  const [expCardVisible, setExpCardVisible] = useState(false);
+
+  const handleArrowBtnClick = () => {
+    setExpCardVisible(!expCardVisible); 
+  };
+
+  return (
+    <div className="p-3 bg-secondary mt-4 rounded-[10px] pb-6">
+      <button
+        className="flex justify-between pl-2 pt-3 w-full"
+        onClick={handleArrowBtnClick}
+      >
+        <div className="flex font-bold text-[18px] mt-[-4px] pb-2">
+          <FaBriefcase
+            style={{
+              height: '30px',
+              width: '30px',
+            }}
+          />
+          <h3 className="pl-2">Experiences</h3>
+        </div>
+
+        <VscTriangleDown className="" />
+      </button>
+
+      {expCardVisible && <ExperienceSection />} 
+    </div>
+  );
+}
+
+export default Experience

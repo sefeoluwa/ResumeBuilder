@@ -110,8 +110,7 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
   )
 }
 
-function skills() {
-
+const SkillsCard = () => {
   const [showSkillForm, setShowSkillForm] = useState(false);
   const [skills, setSkills] = useState([]); // Array to store skills
 
@@ -132,37 +131,55 @@ function skills() {
   };
 
 
+  return(
+    <div className=''>
+   <div className="flex justify-center">
+   <button className='flex justify-center items-center border-primary border-solid border-[5px] w-[40%] h-[45px] rounded-[30px] font-bold' onClick={handleAddClick}> <GrAdd /> Add</button>
+   </div>
+  
+   {showSkillForm && (
+       <SkillForm onSaveSkill={handleSaveSkill} onClose={handleCloseForm} />
+     )}
+
+     {/* Display the list of skills */}
+     {skills.map((skill, index) => (
+       <div key={index}>{/* Render each skill here */}</div>
+     ))}
+   </div>
+  )
+}
+
+const Skills = () => {
+  const [skillsCardVisible, setSkillsCardVisible] = useState(false)
+
+  const handleArrowBtnClick = () => {
+    setSkillsCardVisible(!skillsCardVisible);
+  }
+
+
   return (
-    <div className='p-3 bg-secondary mt-4 rounded-[10px] pb-6'>
-     <button className="flex justify-between pl-2 pt-3 w-full">
-      <div className='flex font-bold text-[18px] mt-[-4px] pb-2'> 
-        <GiSkills
-        style={{
-          height: '30px',
-          width: '30px'
-        }}
-        /> 
-        <h3 className='pl-2'>Skills</h3>
-      </div>
+    <div className="p-3 bg-secondary mt-4 rounded-[10px] pb-6">
+       <button 
+       className="flex justify-between pl-2 pt-3 w-full"
+       onClick={handleArrowBtnClick}
+       >
+     <div className='flex font-bold text-[18px] mt-[-4px] pb-2'> 
+       <GiSkills
+       style={{
+         height: '30px',
+         width: '30px'
+       }}
+       /> 
+       <h3 className='pl-2'>Skills</h3>
+     </div>
 
-      <VscTriangleDown className='' />
-    </button>
+     <VscTriangleDown className='' />
+   </button>
 
-    <div className="flex justify-center">
-    <button className='flex justify-center items-center border-primary border-solid border-[5px] w-[40%] h-[45px] rounded-[30px] font-bold' onClick={handleAddClick}> <GrAdd /> Add</button>
-    </div>
-   
-    {showSkillForm && (
-        <SkillForm onSaveSkill={handleSaveSkill} onClose={handleCloseForm} />
-      )}
-
-      {/* Display the list of skills */}
-      {skills.map((skill, index) => (
-        <div key={index}>{/* Render each skill here */}</div>
-      ))}
+   {skillsCardVisible && <SkillsCard />}
     </div>
    
   )
 }
 
-export default skills
+export default Skills
