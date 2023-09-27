@@ -6,7 +6,7 @@ import { GrAdd  } from 'react-icons/gr'
 import { BsCheckLg } from 'react-icons/bs'
 import { useState } from 'react'
 
-const SkillForm = ({ onSaveSkill }) => {
+const SkillForm = ({ onSaveSkill, onClose }) => {
   const [skillData, setSkillData] = useState({
     skill: '',
     subSkill: '',
@@ -30,6 +30,17 @@ const SkillForm = ({ onSaveSkill }) => {
       subSkill: '',
       skillLevel: 'select',
     });
+  };
+
+  const handleCancel = () => {
+    // Reset the form
+    setSkillData({
+      skill: '',
+      subSkill: '',
+      skillLevel: 'select', // Reset the skill level to the default value
+    });
+    // Close the form
+    onClose();
   };
 
   return(
@@ -90,7 +101,7 @@ const SkillForm = ({ onSaveSkill }) => {
     </form>
     </div>
     <div className="bg-secondary flex justify-end mt-6">
-      <button className='mr-14 font-bold'>Cancel</button>
+      <button className='mr-14 font-bold' onClick={handleCancel} >Cancel</button>
       <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' onClick={handleSave}><BsCheckLg /> 
       <p></p>
       </button>
@@ -107,6 +118,11 @@ function skills() {
   const handleAddClick = () => {
     setShowSkillForm(true);
   };
+
+  const handleCloseForm = () => {
+    setShowSkillForm(false);
+  };
+
 
   const handleSaveSkill = (newSkill) => {
     // Update the skills array with the new skill data
@@ -137,7 +153,7 @@ function skills() {
     </div>
    
     {showSkillForm && (
-        <SkillForm onSaveSkill={handleSaveSkill} />
+        <SkillForm onSaveSkill={handleSaveSkill} onClose={handleCloseForm} />
       )}
 
       {/* Display the list of skills */}
