@@ -24,24 +24,24 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
   };
 
   const handleSave = () => {
-    // Call the onSaveEducation function and pass the EducationData
     onSaveEducation(educationData);
-    // Reset the form or close the EducationForm as needed
     setEducationData({
-      education: '',
-      subEducation: '',
-      educationLevel: 'select',
+    degree: '',
+    school: '',
+    country: '',
+    start: '',
+    end: '',
     });
   };
 
   const handleCancel = () => {
-    // Reset the form
     setEducationData({
-      education: '',
-      subEducation: '',
-      educationLevel: 'select', // Reset the Education level to the default value
+      degree: '',
+    school: '',
+    country: '',
+    start: '',
+    end: '',
     });
-    // Close the form
     onClose();
   };
 
@@ -119,7 +119,7 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
 const EducationCard = () => {
  
   const [showEducationForm, setShowEducationForm] = useState(false);
-  const [education, setEducation] = useState([]); // Array to store Educations
+  const [education, setEducation] = useState([]); 
 
   const handleAddClick = () => {
     setShowEducationForm(true);
