@@ -10,6 +10,12 @@ import LayOut from "./LayOut";
 import Color from "./Color";
 import Fonts from "./Fonts";
 import Resume from "./Resume";
+import Details from './Details'
+import EduSect from './EduSect'
+import ExpSect from './EduSect'
+import Projects from './Projects'
+import ProjectsSect from './ProjectsSect'
+import SkillsSect from './SkillsSect'
 
 
 export {
@@ -25,4 +31,10 @@ export {
     Color,
     Fonts,
     Resume,
+    Details,
+    ExpSect,
+    EduSect,
+    Projects,
+    ProjectsSect,
+    SkillsSect
 }
