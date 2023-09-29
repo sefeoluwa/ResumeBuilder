@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CenterTopBar, LeftPanel, EditContent, CustomizeLook, Resume } from './components';
+import { CenterTopBar, LeftPanel, Content, Customize, Resume } from './components';
 
 function App() {
   const [activeSection, setActiveSection] = useState('content'); // Default to 'content'
@@ -16,18 +16,18 @@ function App() {
 
   return (
     <div className="flex justify-between flex-wrap">
-      <div className="flex flex-wrap gap-5 p-8 justify-between w-[50vw]">
+      <div className="flex flex-wrap gap-3 p-8 justify-between w-[40vw]">
         <LeftPanel
           onContentButtonClick={handleContentButtonClick}
           onCustomizeButtonClick={handleCustomizeButtonClick}
         />
         <div className="w-[400px] ml-5">
           <CenterTopBar />
-          {activeSection === 'content' && <EditContent />}
-          {activeSection === 'customize' && <CustomizeLook />}
+          {activeSection === 'content' && <Content />}
+          {activeSection === 'customize' && <Customize />}
         </div>
       </div>
-      <Resume />
+      <Resume className='w-[45vw]'/>
     </div>
   );
 }

@@ -4,8 +4,8 @@ import Experience from "./Experience";
 import LeftPanel from "./LeftPanel";
 import PersonalDeets from "./PersonalDeets";
 import Skills from "./Skills";
-import EditContent from "./Content";
-import CustomizeLook from "./Customize";
+import Content from "./Content";
+import Customize from "./Customize";
 import LayOut from "./LayOut";
 import Color from "./Color";
 import Fonts from "./Fonts";
@@ -25,8 +25,8 @@ export {
     LeftPanel,
     PersonalDeets,
     Skills,
-    EditContent,
-    CustomizeLook,
+    Content,
+    Customize,
     LayOut,
     Color,
     Fonts,
