@@ -1,8 +1,14 @@
-import React from 'react'
+import { Details, EduSect, ExpSect, SkillsSect, ProjectsSect } from '../components'
 
 function Resume() {
   return (
-    <div>Resume</div>
+   <div className='flex justify-start flex-col bg-red-50 w-[50%]'>
+   <Details />
+   <SkillsSect />
+   <EduSect />
+   <ExpSect />
+   <ProjectsSect />
+   </div>
   )
 }
 

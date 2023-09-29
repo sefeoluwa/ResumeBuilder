@@ -158,6 +158,8 @@ const Personal = () => {
   )
 }
 
+// Links Section.................................
+
 const SocialsCard = ({ onClose, onSaveSocialData }) => {
   const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+([/?#].*)?)?$/;
 
