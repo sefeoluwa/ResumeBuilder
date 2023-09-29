@@ -34,7 +34,6 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
       end: '',
       description: '',
     });
-    console.log(experienceData)
   };
 
   const handleCancel = () => {
@@ -197,7 +196,7 @@ function Experience() {
               width: '30px',
             }}
           />
-          <h3 className="pl-2">Experiences</h3>
+          <h3 className="pl-2">Experience</h3>
         </div>
 
         <VscTriangleDown className="" />
