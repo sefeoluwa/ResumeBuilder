@@ -1,4 +1,4 @@
-import { Education, Experience, Skills, PersonalDeets } from "."
+import { Education, Experience, Skills, PersonalDeets, Projects } from "."
 
 function Content() {
   return (
@@ -7,6 +7,7 @@ function Content() {
     <Education />
     <Skills />
     <Experience />
+    <Projects />
    </>
   )
 }
