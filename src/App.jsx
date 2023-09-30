@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { CenterTopBar, LeftPanel, Content, Customize, Resume } from './components';
+import { DataProvider } from './Context';
 
 function App() {
   const [activeSection, setActiveSection] = useState('content'); // Default to 'content'
@@ -16,7 +17,8 @@ function App() {
 
   return (
     <div className="flex justify-between flex-wrap">
-      <div className="flex flex-wrap gap-3 p-8 justify-between w-[40vw]">
+     <DataProvider>
+     <div className="flex flex-wrap gap-3 p-8 justify-between w-[40vw]">
         <LeftPanel
           onContentButtonClick={handleContentButtonClick}
           onCustomizeButtonClick={handleCustomizeButtonClick}
@@ -28,6 +30,7 @@ function App() {
         </div>
       </div>
       <Resume className='w-[45vw]'/>
+     </DataProvider>
     </div>
   );
 }
