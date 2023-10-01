@@ -41,6 +41,20 @@ export const DataProvider = ({ children }) => {
       
     };
 
+    const [skillData, setSkillData] = useState({
+        skill: '',
+        subSkill: '',
+        skillLevel: 'select',
+      });
+    
+      const handleSkillChange = (e) => {
+        const { name, value } = e.target;
+        setSkillData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+      };
+
     return(
         <DataContext.Provider value={{ 
             personalData, 
@@ -49,6 +63,9 @@ export const DataProvider = ({ children }) => {
             socialData,
             setSocialData,
             handleLinkChange,
+            handleSkillChange,
+            skillData,
+            setSkillData,
         }}>{children}</DataContext.Provider>
     )
 }
