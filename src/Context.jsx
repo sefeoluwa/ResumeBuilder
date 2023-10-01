@@ -5,7 +5,7 @@ import { createContext, useState } from "react"
 const DataContext = createContext()
 
 export const DataProvider = ({ children }) => {
-
+// personal details
     const [personalData, setPersonalData] = useState({
         fullName: '',
         email: '',
@@ -23,11 +23,32 @@ export const DataProvider = ({ children }) => {
         
       };
 
+
+// Social links
+      const [socialData, setSocialData] = useState({
+        linkedin: '',
+        github: '',
+        twitter: '',
+        website: '',
+    })
+    
+    const handleLinkChange = (e) => {
+      const { name, value } = e.target;
+      setSocialData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+      
+    };
+
     return(
         <DataContext.Provider value={{ 
             personalData, 
             setPersonalData, 
             handleInputChange, 
+            socialData,
+            setSocialData,
+            handleLinkChange,
         }}>{children}</DataContext.Provider>
     )
 }
