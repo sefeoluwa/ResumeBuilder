@@ -12,9 +12,7 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
   const { skillData, setSkillData, handleSkillChange } = useContext(DataContext)
 
   const handleSave = () => {
-    // Call the onSaveSkill function and pass the skillData
     onSaveSkill(skillData);
-    // Reset the form or close the SkillForm as needed
     setSkillData({
       skill: '',
       subSkill: '',
@@ -23,13 +21,11 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
   };
 
   const handleCancel = () => {
-    // Reset the form
     setSkillData({
       skill: '',
       subSkill: '',
-      skillLevel: 'select', // Reset the skill level to the default value
+      skillLevel: 'select', 
     });
-    // Close the form
     onClose();
   };
 
@@ -102,7 +98,7 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
 
 const SkillsCard = () => {
   const [showSkillForm, setShowSkillForm] = useState(false);
-  const [skills, setSkills] = useState([]); // Array to store skills
+  const [skills, setSkills] = useState([]); 
 
   const handleAddClick = () => {
     setShowSkillForm(true);
@@ -114,9 +110,7 @@ const SkillsCard = () => {
 
 
   const handleSaveSkill = (newSkill) => {
-    // Update the skills array with the new skill data
     setSkills((prevSkills) => [...prevSkills, newSkill]);
-    // Hide the SkillForm
     setShowSkillForm(false);
   };
 
