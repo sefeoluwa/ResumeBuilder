@@ -5,24 +5,13 @@ import { VscTriangleDown } from 'react-icons/vsc'
 import { BsPersonBoundingBox } from 'react-icons/bs'
 import { FaLink, FaCheck } from 'react-icons/fa'
 import { useState } from 'react'
+import DataContext from '../Context'
+import { useContext } from 'react'
 
 const PersonalCard = ({ onClose, onSavePersonalData }) => {
-  const [personalData, setPersonalData] = useState({
-    fullName: '',
-    email: '',
-    number: '',
-    address: '',
-    title: '',
-})
 
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setPersonalData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
-  
-};
+const { personalData, setPersonalData } = useContext(DataContext);
+const { handleInputChange } = useContext(DataContext);
 
 const handleSave = () => {
   onSavePersonalData(personalData);
