@@ -4,22 +4,12 @@ import { GiSkills } from 'react-icons/gi'
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd  } from 'react-icons/gr'
 import { FaCheck } from 'react-icons/fa'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import DataContext from '../Context'
 
 const SkillForm = ({ onSaveSkill, onClose }) => {
-  const [skillData, setSkillData] = useState({
-    skill: '',
-    subSkill: '',
-    skillLevel: 'select',
-  });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setSkillData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const { skillData, setSkillData, handleSkillChange } = useContext(DataContext)
 
   const handleSave = () => {
     // Call the onSaveSkill function and pass the skillData
@@ -61,7 +51,7 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
               placeholder="Enter skill"
               className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]'
               value={skillData.skill}
-              onChange={handleInputChange} // Bind the input change handler
+              onChange={handleSkillChange} 
             />
           </div>
 
@@ -75,7 +65,7 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
       required 
       placeholder='Enter more information or sub-skills' 
       value={skillData.subSkill}
-      onChange={handleInputChange}
+      onChange={handleSkillChange}
       className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px] pt-2' 
       />
       </div>
@@ -87,7 +77,7 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
         id='skillLevel' 
         required 
         value={skillData.skillLevel}
-        onChange={handleInputChange}
+        onChange={handleSkillChange}
         className='outline-none p-[10px] rounded-[10px] border-none cursor-pointer'
         >
         <option value="select" className='select'>Skill level</option>
