@@ -15,7 +15,6 @@ const PersonalCard = ({ onClose, onSavePersonalData }) => {
 
 const handleSave = () => {
   onSavePersonalData(personalData);
-  console.log(personalData)
   onClose()
 };
 
