@@ -145,21 +145,7 @@ const Personal = () => {
 const SocialsCard = ({ onClose, onSaveSocialData }) => {
   const urlRegex = /^(https?:\/\/)?([\w-]+(\.[\w-]+)+([/?#].*)?)?$/;
 
-  const [socialData, setSocialData] = useState({
-    linkedin: '',
-    github: '',
-    twitter: '',
-    website: '',
-})
-
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setSocialData((prevData) => ({
-    ...prevData,
-    [name]: value,
-  }));
-  
-};
+const {socialData, setSocialData, handleLinkChange} = useContext(DataContext)
 
 const validateUrl = (name, value) => {
   const isValid = urlRegex.test(value);
@@ -185,23 +171,11 @@ const handleSave = () => {
   // Check if there are any input errors
   if (Object.values(inputErrors).every((error) => error === '')) {
     onSaveSocialData(socialData);
-    setSocialData({
-      linkedin: '',
-      github: '',
-      twitter: '',
-      website: '',
-    });
     onClose();
   }
 };
 
 const handleCancel = () => {
-  setSocialData({
-    linkedin: '',
-    github: '',
-    twitter: '',
-    website: '',
-  });
   onClose();
 };
 
@@ -219,7 +193,7 @@ const handleCancel = () => {
           }`}
           placeholder="https://www.linkedin.com/in/johndoe/"
           value={socialData.linkedin}
-          onChange={handleInputChange}
+          onChange={handleLinkChange}
           onBlur={handleBlur}
         />
         {inputErrors.linkedin && (
@@ -239,7 +213,7 @@ const handleCancel = () => {
     }`}
     placeholder="https://www.github.com/johndoe/"
     value={socialData.github}
-    onChange={handleInputChange}
+    onChange={handleLinkChange}
     onBlur={handleBlur}
   />
   {inputErrors.github && (
@@ -259,7 +233,7 @@ const handleCancel = () => {
     }`}
     placeholder="https://www.twitter.com/johndoe/"
     value={socialData.twitter}
-    onChange={handleInputChange}
+    onChange={handleLinkChange}
     onBlur={handleBlur}
   />
   {inputErrors.twitter && (
@@ -279,7 +253,7 @@ const handleCancel = () => {
     }`}
     placeholder="https://www.johndoe.com"
     value={socialData.website}
-    onChange={handleInputChange}
+    onChange={handleLinkChange}
     onBlur={handleBlur}
   />
   {inputErrors.website && (
