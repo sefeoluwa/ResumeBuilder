@@ -10,29 +10,16 @@ import { useContext } from 'react'
 
 const PersonalCard = ({ onClose, onSavePersonalData }) => {
 
-const { personalData, setPersonalData } = useContext(DataContext);
-const { handleInputChange } = useContext(DataContext);
+  const { personalData, handleInputChange, setPersonalData } = useContext(DataContext);
+
 
 const handleSave = () => {
   onSavePersonalData(personalData);
-  setPersonalData({
-    fullName: '',
-    email: '',
-    number: '',
-    address: '',
-    title: '',
-  });
+  console.log(personalData)
   onClose()
 };
 
 const handleCancel = () => {
-  setPersonalData({
-    fullName: '',
-    email: '',
-    number: '',
-    address: '',
-    title: '',
-  });
   onClose();
 };
 
@@ -43,6 +30,7 @@ const handleCancel = () => {
         <input 
         type="text" 
         name="fullName" 
+        value={personalData.fullName}
         id="name" 
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
         placeholder='John Doe' 
@@ -55,6 +43,7 @@ const handleCancel = () => {
         <input 
         type="email" 
         name="email" 
+        value={personalData.email}
         id="email" 
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
         placeholder='johndoe@gmail.com' 
@@ -67,6 +56,7 @@ const handleCancel = () => {
         type="tel" 
         name="number" 
         id="number" 
+        value={personalData.number}
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
         placeholder='Phone' 
         onChange={handleInputChange}
@@ -77,6 +67,7 @@ const handleCancel = () => {
         <input 
         type="text" 
         name="address" 
+        value={personalData.address}
         id="address" 
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
         placeholder='Lagos, Nigeria' 
@@ -87,6 +78,7 @@ const handleCancel = () => {
       <label htmlFor="title">Job Title <span className='text-[11px] text-gray-500 font-bold' >recommended</span></label>
         <input 
         type="text" 
+        value={personalData.title}
         name="title" 
         id="title" 
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
@@ -105,6 +97,7 @@ const handleCancel = () => {
 }
 
 const Personal = () => {
+  const {personalData} = useContext(DataContext)
   const [persCardVisible, setPersCardVisible] = useState(false)
 
   const handleArrowBtnClick = () => {
