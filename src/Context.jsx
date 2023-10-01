@@ -24,7 +24,11 @@ export const DataProvider = ({ children }) => {
       };
 
     return(
-        <DataContext.Provider value={{ personalData, setPersonalData, handleInputChange }}>{children}</DataContext.Provider>
+        <DataContext.Provider value={{ 
+            personalData, 
+            setPersonalData, 
+            handleInputChange, 
+        }}>{children}</DataContext.Provider>
     )
 }
 
