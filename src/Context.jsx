@@ -41,7 +41,7 @@ export const DataProvider = ({ children }) => {
       
     };
 
-    // Skills section
+    // Skills section.....................................................
     const [skillData, setSkillData] = useState({
         skill: '',
         subSkill: '',
@@ -63,6 +63,25 @@ export const DataProvider = ({ children }) => {
     setShowSkillForm(false);
   };
 
+  // Eduction Section ...................................................
+  const [educationData, setEducationData] = useState({
+    degree: '',
+    school: '',
+    country: '',
+    start: '',
+    end: '',
+  });
+
+  const [education, setEducation] = useState([]); 
+  const [showEducationForm, setShowEducationForm] = useState(false);
+ 
+
+  const handleSaveEducation = (newEducation) => {
+    setEducation((prevEducation) => [...prevEducation, newEducation]);
+    setShowEducationForm(false);
+  };
+
+
     return(
         <DataContext.Provider value={{ 
             personalData, 
@@ -79,6 +98,13 @@ export const DataProvider = ({ children }) => {
             handleSaveSkill,
             showSkillForm,
             setShowSkillForm,
+            education,
+            setEducation,
+            showEducationForm,
+            setShowEducationForm,
+            handleSaveEducation,
+            educationData,
+            setEducationData,
         }}>{children}</DataContext.Provider>
     )
 }

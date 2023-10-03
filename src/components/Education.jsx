@@ -4,16 +4,12 @@ import { FaGraduationCap, FaCheck } from 'react-icons/fa'
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd } from 'react-icons/gr'
 import { useState } from 'react'
+import { useContext } from 'react'
+import DataContext from '../Context'
 
 const EducationForm = ({ onSaveEducation, onClose }) => {
 
-  const [educationData, setEducationData] = useState({
-    degree: '',
-    school: '',
-    country: '',
-    start: '',
-    end: '',
-  });
+  const { educationData, setEducationData } = useContext(DataContext)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -118,20 +114,13 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
 
 const EducationCard = () => {
  
-  const [showEducationForm, setShowEducationForm] = useState(false);
-  const [education, setEducation] = useState([]); 
+ const { showEducationForm, setShowEducationForm, handleSaveEducation } = useContext(DataContext) 
 
   const handleAddClick = () => {
     setShowEducationForm(true);
   };
 
   const handleCloseForm = () => {
-    setShowEducationForm(false);
-  };
-
-
-  const handleSaveEducation = (newEducation) => {
-    setEducation((prevEducation) => [...prevEducation, newEducation]);
     setShowEducationForm(false);
   };
 
@@ -145,11 +134,6 @@ const EducationCard = () => {
     {showEducationForm && (
         <EducationForm onSaveEducation={handleSaveEducation} onClose={handleCloseForm} />
       )}
-
-      {/* Display the list of Educations */}
-      {education.map((education, index) => (
-        <div key={index}>{/* Render each Education here */}</div>
-      ))}
     </div>
 
   )
