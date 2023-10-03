@@ -16,7 +16,6 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
     setSkillData({
       skill: '',
       subSkill: '',
-      skillLevel: 'select',
     });
   };
 
@@ -24,7 +23,6 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
     setSkillData({
       skill: '',
       subSkill: '',
-      skillLevel: 'select', 
     });
     onClose();
   };
@@ -66,24 +64,6 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
       />
       </div>
     
-
-<div className="flex flex-col gap-2 mt-4">
-<label htmlFor="skillLevel">Select skill Level</label>
-        <select name='skillLevel' 
-        id='skillLevel' 
-        required 
-        value={skillData.skillLevel}
-        onChange={handleSkillChange}
-        className='outline-none p-[10px] rounded-[10px] border-none cursor-pointer'
-        >
-        <option value="select" className='select'>Skill level</option>
-        <option value="novice">Novice</option>
-        <option value="beginner">Beginner</option>
-        <option value="skillful">Skillful</option>
-        <option value="experienced">Experienced</option>
-        <option value="expert">Expert</option>
-        </select>
-</div>
     </form>
     </div>
     <div className="bg-secondary flex justify-end mt-6">

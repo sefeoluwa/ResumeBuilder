@@ -44,7 +44,6 @@ export const DataProvider = ({ children }) => {
     const [skillData, setSkillData] = useState({
         skill: '',
         subSkill: '',
-        skillLevel: 'select',
       });
     
       const handleSkillChange = (e) => {
