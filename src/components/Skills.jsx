@@ -13,17 +13,14 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
 
   const handleSave = () => {
     onSaveSkill(skillData);
+    onClose()
     setSkillData({
       skill: '',
       subSkill: '',
-    });
+    })
   };
 
   const handleCancel = () => {
-    setSkillData({
-      skill: '',
-      subSkill: '',
-    });
     onClose();
   };
 
@@ -77,20 +74,15 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
 }
 
 const SkillsCard = () => {
-  const [showSkillForm, setShowSkillForm] = useState(false);
-  const [skills, setSkills] = useState([]); 
+
+  const {handleSaveSkill, setShowSkillForm, showSkillForm} = useContext(DataContext)
+
 
   const handleAddClick = () => {
     setShowSkillForm(true);
   };
 
   const handleCloseForm = () => {
-    setShowSkillForm(false);
-  };
-
-
-  const handleSaveSkill = (newSkill) => {
-    setSkills((prevSkills) => [...prevSkills, newSkill]);
     setShowSkillForm(false);
   };
 
@@ -105,10 +97,6 @@ const SkillsCard = () => {
        <SkillForm onSaveSkill={handleSaveSkill} onClose={handleCloseForm} />
      )}
 
-     {/* Display the list of skills */}
-     {skills.map((skill, index) => (
-       <div key={index}>{/* Render each skill here */}</div>
-     ))}
    </div>
   )
 }
