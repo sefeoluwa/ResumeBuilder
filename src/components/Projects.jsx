@@ -4,25 +4,13 @@
 import { VscTriangleDown } from 'react-icons/vsc'
 import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import DataContext from '../Context';
 
 
 
 const ProjectsForm = ({ onSaveProjects, onClose }) => {
-  const [projectsData, setProjectsData] = useState({
-    projectName: '',
-    start: '',
-    end: '',
-    description: '',
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProjectsData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+const { projectsData, setProjectsData, handleProjectChange } = useContext(DataContext)
 
   const handleSave = () => {
     onSaveProjects(projectsData);
@@ -35,12 +23,6 @@ const ProjectsForm = ({ onSaveProjects, onClose }) => {
   };
 
   const handleCancel = () => {
-    setProjectsData({
-      projectName: '',
-    start: '',
-    end: '',
-    description: '',
-    });
     onClose();
   };
 
@@ -65,7 +47,7 @@ const ProjectsForm = ({ onSaveProjects, onClose }) => {
               placeholder="Enter project name"
               className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]'
               value={projectsData.projectName}
-              onChange={handleInputChange} 
+              onChange={handleProjectChange} 
             />
           </div>
 
@@ -78,7 +60,7 @@ const ProjectsForm = ({ onSaveProjects, onClose }) => {
         id="start" 
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
         value={projectsData.start}
-        onChange={handleInputChange} 
+        onChange={handleProjectChange} 
         />
     </div>
     <div className="w-[45%] flex flex-col gap-2 mt-3">
@@ -89,7 +71,7 @@ const ProjectsForm = ({ onSaveProjects, onClose }) => {
         id="end" 
         value={projectsData.end}
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
-        onChange={handleInputChange} 
+        onChange={handleProjectChange} 
         />
     </div>
    </div>
@@ -104,7 +86,7 @@ const ProjectsForm = ({ onSaveProjects, onClose }) => {
       required 
       placeholder='Give project description' 
       value={projectsData.description}
-      onChange={handleInputChange}
+      onChange={handleProjectChange}
       className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[100px] pt-2' 
       />
       </div>
@@ -122,8 +104,7 @@ const ProjectsForm = ({ onSaveProjects, onClose }) => {
 }
 
 const ProjectsSection = () => {
-  const [showProjectsForm, setShowProjectsForm] = useState(false);
-  const [projects, setProjects] = useState([]); 
+const { projects, showProjectsForm, setShowProjectsForm, handleSaveProjects } = useContext(DataContext)
 
   const handleAddClick = () => {
     setShowProjectsForm(true);
@@ -134,10 +115,6 @@ const ProjectsSection = () => {
   };
 
 
-  const handleSaveProjects = (newProjects) => {
-    setProjects((prevProjects) => [...prevProjects, newProjects]);
-    setShowProjectsForm(false);
-  };
 
 
   return (

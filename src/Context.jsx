@@ -117,6 +117,29 @@ export const DataProvider = ({ children }) => {
     setShowExperienceForm(false);
   };
 
+  // Projects section
+  const [projectsData, setProjectsData] = useState({
+    projectName: '',
+    start: '',
+    end: '',
+    description: '',
+  });
+
+  const handleProjectChange = (e) => {
+    const { name, value } = e.target;
+    setProjectsData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const [showProjectsForm, setShowProjectsForm] = useState(false);
+  const [projects, setProjects] = useState([]); 
+
+  const handleSaveProjects = (newProjects) => {
+    setProjects((prevProjects) => [...prevProjects, newProjects]);
+    setShowProjectsForm(false);
+  };
 
     return(
         <DataContext.Provider value={{ 
@@ -150,6 +173,14 @@ export const DataProvider = ({ children }) => {
             handleSaveExperience,
             setShowExperienceForm,
             showExperienceForm,
+            projects,
+            setProjects,
+            projectsData,
+            setProjectsData,
+            handleSaveProjects,
+            showProjectsForm,
+            setShowProjectsForm,
+            handleProjectChange,
         }}>{children}</DataContext.Provider>
     )
 }
