@@ -9,18 +9,11 @@ import DataContext from '../Context'
 
 const EducationForm = ({ onSaveEducation, onClose }) => {
 
-  const { educationData, setEducationData } = useContext(DataContext)
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEducationData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const { educationData, setEducationData, handleEduChange } = useContext(DataContext)
 
   const handleSave = () => {
     onSaveEducation(educationData);
+    onClose()
     setEducationData({
     degree: '',
     school: '',
@@ -31,13 +24,6 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
   };
 
   const handleCancel = () => {
-    setEducationData({
-      degree: '',
-    school: '',
-    country: '',
-    start: '',
-    end: '',
-    });
     onClose();
   };
 
@@ -52,8 +38,9 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
         id="degree" 
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
         required 
+        value={educationData.degree}
         placeholder='Enter Degree / Field of Study'
-        onChange={handleInputChange} 
+        onChange={handleEduChange} 
         />
     </div>
     <div className="flex flex-col gap-2 mt-3">
@@ -62,9 +49,11 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
         type="text" 
         name="school" 
         id="school" 
+        required
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
         placeholder='Enter School / University' 
-        onChange={handleInputChange} 
+        value={educationData.school}
+        onChange={handleEduChange} 
         />
     </div>
     <div className="flex flex-col gap-2 mt-3">
@@ -73,10 +62,12 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
         type="country" 
         name="country" 
         id="country" 
+        required
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
         autoComplete='country-name' 
         placeholder='Enter Country'
-        onChange={handleInputChange} 
+        value={educationData.country}
+        onChange={handleEduChange} 
         />
     </div>
  
@@ -88,7 +79,8 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
         name="start" 
         id="title" 
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
-        onChange={handleInputChange} 
+        value={educationData.start}
+        onChange={handleEduChange} 
         />
     </div>
     <div className="w-[45%] flex flex-col gap-2 mt-3">
@@ -98,7 +90,8 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
         name="end" 
         id="title" 
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
-        onChange={handleInputChange} 
+        value={educationData.end}
+        onChange={handleEduChange} 
         />
     </div>
    </div>

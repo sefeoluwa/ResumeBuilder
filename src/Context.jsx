@@ -81,6 +81,14 @@ export const DataProvider = ({ children }) => {
     setShowEducationForm(false);
   };
 
+  const handleEduChange = (e) => {
+    const { name, value } = e.target;
+    setEducationData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
 
     return(
         <DataContext.Provider value={{ 
@@ -105,6 +113,7 @@ export const DataProvider = ({ children }) => {
             handleSaveEducation,
             educationData,
             setEducationData,
+            handleEduChange,
         }}>{children}</DataContext.Provider>
     )
 }
