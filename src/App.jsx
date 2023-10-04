@@ -1,38 +1,43 @@
-import { useState } from 'react';
-import { CenterTopBar, LeftPanel, Content, Customize, Resume } from './components';
-import { DataProvider } from './Context';
+import InApp from "./pages/InApp"
+import Signup from "./pages/Signup"
+import { auth } from './firebase-config'
+import { useState } from "react"
+import { signOut } from "firebase/auth"
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 
-function App() {
-  const [activeSection, setActiveSection] = useState('content'); // Default to 'content'
+const App = () => {
 
-  // Function to handle content button click
-  const handleContentButtonClick = () => {
-    setActiveSection('content');
-  };
+  const [isAuth, setIsAuth] = useState(localStorage.getItem('isAuth'));
 
-  // Function to handle customize button click
-  const handleCustomizeButtonClick = () => {
-    setActiveSection('customize');
-  };
+
+
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      setIsAuth(false);
+     window.location.pathname = '/signup'
+    })
+  }
 
   return (
-    <div className="flex justify-between flex-wrap">
-     <DataProvider>
-     <div className="flex flex-wrap gap-3 p-8 justify-between w-[40vw]">
-        <LeftPanel
-          onContentButtonClick={handleContentButtonClick}
-          onCustomizeButtonClick={handleCustomizeButtonClick}
-        />
-        <div className="w-[400px] ml-5">
-          <CenterTopBar />
-          {activeSection === 'content' && <Content />}
-          {activeSection === 'customize' && <Customize />}
-        </div>
-      </div>
-      <Resume className='w-[45vw]'/>
-     </DataProvider>
-    </div>
-  );
+    <Router>
+            <nav className="nav">
+        <Link to='/'>Home</Link>
+       {!isAuth ? ( 
+        <Link to='/signup'>SignUp</Link> 
+        ) : ( 
+        <>
+          <Link to='/createpost'>Create Post</ Link>
+        <button onClick={signUserOut} className="login-btn">Sign Out</button>
+        </>
+        )}
+      </nav>
+        <Routes>
+        <Route path="/" element={<InApp isAuth={isAuth} />} />
+          <Route path="/signup" element={<Signup setIsAuth={setIsAuth} />} />
+        </Routes>
+    </Router>
+  )
 }
 
-export default App;
+export default App
