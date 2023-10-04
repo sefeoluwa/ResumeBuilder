@@ -18,7 +18,6 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
       skill: '',
       subSkill: '',
     })
-    console.log(skillData)
   };
 
   const handleCancel = () => {
