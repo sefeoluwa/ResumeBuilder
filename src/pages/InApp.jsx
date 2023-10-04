@@ -9,7 +9,7 @@ function InApp({ isAuth }) {
     let navigate = useNavigate();
     useEffect(() => {
         if (!isAuth) {
-          navigate('/login')
+          navigate('/signup')
         }
       }, [isAuth, navigate]);
 
