@@ -4,26 +4,13 @@
 import { VscTriangleDown } from 'react-icons/vsc'
 import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import DataContext from '../Context';
 
 
 
 const ExperienceForm = ({ onSaveExperience, onClose }) => {
-  const [experienceData, setExperienceData] = useState({
-    role: '',
-    company: '',
-    start: '',
-    end: '',
-    description: '',
-  });
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setExperienceData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+  const { experienceData, setExperienceData, handleExpChange } = useContext(DataContext)
 
   const handleSave = () => {
     onSaveExperience(experienceData);
@@ -37,13 +24,6 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
   };
 
   const handleCancel = () => {
-    setExperienceData({
-      role: '',
-      company: '',
-      start: '',
-      end: '',
-      description: '',
-    });
     onClose();
   };
 
@@ -68,7 +48,7 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
               placeholder="Enter job title"
               className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]'
               value={experienceData.role}
-              onChange={handleInputChange} 
+              onChange={handleExpChange} 
             />
           </div>
 
@@ -83,7 +63,7 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
               placeholder="Enter company name"
               className='bg-primary outline-none w-full pl-2 rounded-[10px] text-[14px] h-[40px]'
               value={experienceData.company}
-              onChange={handleInputChange} 
+              onChange={handleExpChange} 
             />
           </div>
 
@@ -96,7 +76,7 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
         id="start" 
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
         value={experienceData.start}
-        onChange={handleInputChange} 
+        onChange={handleExpChange} 
         />
     </div>
     <div className="w-[45%] flex flex-col gap-2 mt-3">
@@ -107,7 +87,7 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
         id="end" 
         value={experienceData.end}
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
-        onChange={handleInputChange} 
+        onChange={handleExpChange} 
         />
     </div>
    </div>
@@ -122,7 +102,7 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
       required 
       placeholder='Describe your role' 
       value={experienceData.description}
-      onChange={handleInputChange}
+      onChange={handleExpChange}
       className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[100px] pt-2' 
       />
       </div>
@@ -140,8 +120,7 @@ const ExperienceForm = ({ onSaveExperience, onClose }) => {
 }
 
 const ExperienceSection = () => {
-  const [showExperienceForm, setShowExperienceForm] = useState(false);
-  const [experiences, setExperiences] = useState([]); 
+ const { setShowExperienceForm, showExperienceForm, handleSaveExperience } = useContext(DataContext)
 
   const handleAddClick = () => {
     setShowExperienceForm(true);
@@ -152,10 +131,6 @@ const ExperienceSection = () => {
   };
 
 
-  const handleSaveExperience = (newExperience) => {
-    setExperiences((prevExperiences) => [...prevExperiences, newExperience]);
-    setShowExperienceForm(false);
-  };
 
 
   return (
@@ -167,11 +142,6 @@ const ExperienceSection = () => {
     {showExperienceForm && (
         <ExperienceForm onSaveExperience={handleSaveExperience} onClose={handleCloseForm} />
       )}
-
-      
-      {experiences.map((experience, index) => (
-        <div key={index}>{/* Render each Experience here */}</div>
-      ))}
     </div>
    
   

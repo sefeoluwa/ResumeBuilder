@@ -89,6 +89,34 @@ export const DataProvider = ({ children }) => {
     }));
   };
 
+  // Experience section ...................................................
+
+  const [experienceData, setExperienceData] = useState({
+    role: '',
+    company: '',
+    start: '',
+    end: '',
+    description: '',
+  });
+
+
+  const handleExpChange = (e) => {
+    const { name, value } = e.target;
+    setExperienceData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const [experience, setExperience] = useState([]); 
+  const [showExperienceForm, setShowExperienceForm] = useState(false);
+
+
+  const handleSaveExperience = (newExperience) => {
+    setExperience((prevExperiences) => [...prevExperiences, newExperience]);
+    setShowExperienceForm(false);
+  };
+
 
     return(
         <DataContext.Provider value={{ 
@@ -114,6 +142,14 @@ export const DataProvider = ({ children }) => {
             educationData,
             setEducationData,
             handleEduChange,
+            experienceData,
+            setExperienceData,
+            experience,
+            setExperience,
+            handleExpChange,
+            handleSaveExperience,
+            setShowExperienceForm,
+            showExperienceForm,
         }}>{children}</DataContext.Provider>
     )
 }
