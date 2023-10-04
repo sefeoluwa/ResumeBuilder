@@ -23,7 +23,9 @@ const handleCancel = () => {
 };
 
   return(
-    <form action="" className='mt-4 pl-2'>
+    <form action="" className='mt-4 pl-2' onSubmit={(e) => {
+      e.preventDefault(); 
+      handleSave(); }}>
     <div className="flex flex-col gap-2">
       <label htmlFor="name">Full Name</label>
         <input 
@@ -38,7 +40,7 @@ const handleCancel = () => {
         />
     </div>
     <div className="flex flex-col gap-2 mt-3">
-      <label htmlFor="email">Email <span className='text-[11px] text-gray-500 font-bold' >recommended</span> </label>
+      <label htmlFor="email">Email </label>
         <input 
         type="email" 
         name="email" 
@@ -46,6 +48,7 @@ const handleCancel = () => {
         id="email" 
         className='bg-primary outline-none pl-2 rounded-[10px] text-[14px] h-[40px]' 
         placeholder='johndoe@gmail.com' 
+        required
         onChange={handleInputChange}
         />
     </div>
@@ -87,7 +90,7 @@ const handleCancel = () => {
     </div>
     <div className="bg-secondary flex justify-end mt-6">
       <button className='mr-14 font-bold' onClick={handleCancel} type='button' >Cancel</button>
-      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' type='button' onClick={handleSave}><FaCheck /> 
+      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' type='submit'><FaCheck /> 
       <p></p>
       </button>
       </div>
