@@ -48,7 +48,10 @@ const ProjectsForm = ({ onSaveProjects, onClose }) => {
    <div className='p-3 bg-secondary mt-4 rounded-[10px] pb-6'>
     <h3 className='font-bold text-[20px]'>Create Projects</h3>
     <div className="mt-4">
-    <form action="">
+    <form action=""  onSubmit={(e) => {
+      e.preventDefault(); 
+      handleSave(); 
+      }}>
        <div className="flex flex-col gap-2">
       <label htmlFor="projectName">Project Name 
       <span className='text-[red] ml-1'>*</span>
@@ -106,14 +109,13 @@ const ProjectsForm = ({ onSaveProjects, onClose }) => {
       />
       </div>
     
-
-    </form>
-    </div>
-    <div className="bg-secondary flex justify-end mt-6">
+      <div className="bg-secondary flex justify-end mt-6">
       <button className='mr-14 font-bold' onClick={handleCancel} >Cancel</button>
-      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' onClick={handleSave}><FaCheck /> 
+      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' ><FaCheck /> 
       <p></p>
       </button>
+    </div>
+    </form>
     </div>
    </div>
   )

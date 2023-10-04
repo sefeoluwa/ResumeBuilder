@@ -29,7 +29,10 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
 
   return(
 
-    <form action="" className='mt-4 pl-2'>
+    <form action="" className='mt-4 pl-2' onSubmit={(e) => {
+      e.preventDefault(); 
+      handleSave(); 
+      }}>
     <div className="flex flex-col gap-2">
       <label htmlFor="degree">Degree</label>
         <input 
@@ -97,7 +100,7 @@ const EducationForm = ({ onSaveEducation, onClose }) => {
    </div>
    <div className="bg-secondary flex justify-end mt-6">
       <button className='mr-14 font-bold' onClick={handleCancel} >Cancel</button>
-      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' onClick={handleSave}><FaCheck /> 
+      <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5'><FaCheck /> 
       <p></p>
       </button>
     </div>
