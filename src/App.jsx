@@ -4,6 +4,7 @@ import { auth } from './firebase-config'
 import { useState } from "react"
 import { signOut } from "firebase/auth"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+import { DataProvider } from './Context';
 
 const App = () => {
 
@@ -32,10 +33,12 @@ const App = () => {
         </>
         )}
       </nav>
+      <DataProvider>
         <Routes>
-        <Route path="/" element={<InApp isAuth={isAuth} />} />
+          <Route path="/" element={<InApp isAuth={isAuth} />} />
           <Route path="/signup" element={<Signup setIsAuth={setIsAuth} />} />
         </Routes>
+        </DataProvider>
     </Router>
   )
 }
