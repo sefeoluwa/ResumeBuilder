@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { GiSkills } from 'react-icons/gi' 
@@ -15,24 +16,20 @@ const SkillForm = ({ onSaveSkill, onClose, isAuth }) => {
 
   const [skillsList, setSkillsList] = useState([]);
 
-  const skillsCollectionRef = collection(db, 'skills'); // Replace 'skills' with your Firestore collection name
+  const skillsCollectionRef = collection(db, 'skills'); 
 
   const handleSave = async () => {
     onSaveSkill(skillData);
     onClose();
 
     try {
-      // Save skill data to Firestore
-      const user = auth.currentUser; // Get the currently signed-in user
+      const user = auth.currentUser; 
       if (user) {
         const docRef = await addDoc(skillsCollectionRef, {
           userId: user.uid,
           skill: skillData.skill,
           subSkill: skillData.subSkill,
         });
-        console.log('Skill data added with ID: ', docRef.id);
-
-        // Clear the error state and skillData
         setSkillData({
           skill: '',
           subSkill: '',
@@ -43,7 +40,6 @@ const SkillForm = ({ onSaveSkill, onClose, isAuth }) => {
     }
   };
 
-  // Fetch skills data from Firestore when the component mounts
   useEffect(() => {
     const fetchSkills = async () => {
       const querySnapshot = await getDocs(skillsCollectionRef);

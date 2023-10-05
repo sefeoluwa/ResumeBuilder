@@ -1,19 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
-import DataContext from '../Context';
+import { useEffect, useState } from 'react';
 import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 
 const SkillsSect = () => {
-  const { skills } = useContext(DataContext);
   const [skillsList, setSkillsList] = useState([]);
 
-  const skillsCollectionRef = collection(db, 'skills'); // Replace 'skills' with your Firestore collection name
+  const skillsCollectionRef = collection(db, 'skills');
 
   useEffect(() => {
-    const user = auth.currentUser; // Get the currently signed-in user
+    const user = auth.currentUser;
 
     if (user) {
-      // Fetch user-specific skills from Firestore
       const querySkills = async () => {
         const querySnapshot = await getDocs(skillsCollectionRef);
         const skillsData = [];
