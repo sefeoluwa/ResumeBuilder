@@ -4,22 +4,57 @@ import { GiSkills } from 'react-icons/gi'
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd  } from 'react-icons/gr'
 import { FaCheck } from 'react-icons/fa'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db, auth } from '../firebase-config';
 import DataContext from '../Context'
 
-const SkillForm = ({ onSaveSkill, onClose }) => {
+const SkillForm = ({ onSaveSkill, onClose, isAuth }) => {
 
-  const { skillData, setSkillData, handleSkillChange } = useContext(DataContext)
+  const { skillData, setSkillData, handleSkillChange, skills } = useContext(DataContext)
 
-  const handleSave = () => {
+  const [skillsList, setSkillsList] = useState([]);
+
+  const skillsCollectionRef = collection(db, 'skills'); // Replace 'skills' with your Firestore collection name
+
+  const handleSave = async () => {
     onSaveSkill(skillData);
-    onClose()
-    setSkillData({
-      skill: '',
-      subSkill: '',
-    })
+    onClose();
+
+    try {
+      // Save skill data to Firestore
+      const user = auth.currentUser; // Get the currently signed-in user
+      if (user) {
+        const docRef = await addDoc(skillsCollectionRef, {
+          userId: user.uid,
+          skill: skillData.skill,
+          subSkill: skillData.subSkill,
+        });
+        console.log('Skill data added with ID: ', docRef.id);
+
+        // Clear the error state and skillData
+        setSkillData({
+          skill: '',
+          subSkill: '',
+        });
+      }
+    } catch (error) {
+      console.error('Error adding skill data: ', error);
+    }
   };
 
+  // Fetch skills data from Firestore when the component mounts
+  useEffect(() => {
+    const fetchSkills = async () => {
+      const querySnapshot = await getDocs(skillsCollectionRef);
+      const skillsData = [];
+      querySnapshot.forEach((doc) => {
+        skillsData.push(doc.data());
+      });
+      setSkillsList(skillsData);
+    };
+    fetchSkills();
+  }, [skillsCollectionRef]);
   const handleCancel = () => {
     onClose();
   };
