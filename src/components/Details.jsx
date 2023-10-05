@@ -1,17 +1,50 @@
-import { useContext } from 'react'
-import DataContext from '../Context'
+import { useState, useEffect } from 'react'
+import { db, auth } from '../firebase-config';
+import { collection, getDocs } from 'firebase/firestore';
 
 function Details() {
-  const { personalData, socialData } = useContext(DataContext)
+  const [personalList, setPersonalList] = useState([])
+  const personalCollectionRef = collection(db, 'personalDetails')
+
+  useEffect(() => {
+  const user = auth.currentUser;
+
+  if(user) {
+    const queryPersonalDetails = async () => {
+      const querySnapshot = await getDocs(personalCollectionRef);
+      const persData = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data()
+
+        if (data.userId === user.uid) {
+          persData.push(data);
+        }
+      })
+      setPersonalList(persData)
+    }
+    queryPersonalDetails();
+  }
+  }, [personalCollectionRef])
+
+
   return (
     <>
     <div>
-     <h1>{personalData.fullName}</h1>
-     <p>{personalData.email}</p>
-     <p>{personalData.number}</p>
-     <p>{personalData.address}</p>
-     <p>{personalData.title}</p>
-    </div>
+    {personalList.map((personal, index) => (
+      <div className="" key={`${personal.fullName}-${index}`}>
+        <h2>{personal.fullName}</h2>
+        <p>{personal.email}</p>
+        <p>{personal.number}</p>
+        <p>{personal.address}</p>
+        <p>{personal.title}</p>
+      </div>
+    ))}
+
+
+
+
+
+    {/* </div>
     <div className="flex justify-between">
   <a href={socialData.linkedin} target="_blank" rel="noopener noreferrer">
     LinkedIn
@@ -24,7 +57,7 @@ function Details() {
   </a>
   <a href={socialData.website} target="_blank" rel="noopener noreferrer">
     Website
-  </a>
+  </a> */}
 </div>
 
     </>
