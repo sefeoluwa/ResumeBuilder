@@ -6,55 +6,61 @@ import { BsPersonBoundingBox } from 'react-icons/bs'
 import { FaLink, FaCheck } from 'react-icons/fa'
 import DataContext from '../Context'
 import { useContext, useEffect, useState } from 'react'
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 
 const PersonalCard = ({ onClose, onSavePersonalData }) => {
 
-  const { personalData, handleInputChange, setPersonalData } = useContext(DataContext);
+  const { personalData, handleInputChange, setPersonalData} = useContext(DataContext);
   const [personalList, setPersonalList] = useState([]);
 
   const personalCollectionRef = collection(db, 'personalDetails'); 
 
-const handleSave = async () => {
-  onSavePersonalData(personalData);
-  onClose()
-
-  try {
-    const user = auth.currentUser;
-    if (user) {
-      const docRef = await addDoc(personalCollectionRef, {
-        userId: user.uid,
-        fullName: personalData.fullName,
-        address: personalData.address,
-        title: personalData.title,
-        number: personalData.number,
-        email: personalData.email,
-      });
-      setPersonalData({
-        fullName: '',
-        email: '',
-        number: '',
-        address: '',
-        title: '',
-      });
+  const handleSave = async () => {
+    onSavePersonalData(personalData);
+    onClose();
+  
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        // Check if personal data for the user already exists
+        const querySnapshot = await getDocs(personalCollectionRef);
+        let existingDocId = null;
+  
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.userId === user.uid) {
+            existingDocId = doc.id;
+          }
+        });
+  
+        if (existingDocId) {
+          // If personal data exists, update the existing document
+          await updateDoc(doc(personalCollectionRef, existingDocId), {
+            fullName: personalData.fullName,
+            address: personalData.address,
+            title: personalData.title,
+            number: personalData.number,
+            email: personalData.email,
+          });
+        } else {
+          // If personal data doesn't exist, create a new document
+          await addDoc(personalCollectionRef, {
+            userId: user.uid,
+            fullName: personalData.fullName,
+            address: personalData.address,
+            title: personalData.title,
+            number: personalData.number,
+            email: personalData.email,
+          });
+        }
+      
+      }
+    } catch (error) {
+      console.error('Error saving personal data: ', error);
     }
-  } catch (error) {
-    console.error('Error adding personal data: ', error)
-  }
-};
-
-useEffect(() => {
-  const fetchPersonalDetails = async () => {
-    const querySnapshot = await getDocs(personalCollectionRef);
-    const persData = [];
-    querySnapshot.forEach((doc) => {
-      persData.push(doc.data())
-    });
-    setPersonalList(persData);
   };
-  fetchPersonalDetails();
-}, [personalCollectionRef, personalData]);
+  
 
 
 const handleCancel = () => {
