@@ -1,41 +1,44 @@
-import { useEffect, useState } from 'react';
-import { db, auth } from '../firebase-config';
+import { useState, useEffect } from 'react';
+import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 
-const SkillsSect = () => {
-  const [skillsList, setSkillsList] = useState([]);
-
-  const skillsCollectionRef = collection(db, 'skills');
-
+function SkillsSect() {
+  const [skills, setSkills] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
+  const skillsCollectionRef = collection(db, 'skills'); 
   useEffect(() => {
-    const user = auth.currentUser;
-
-    if (user) {
-      const querySkills = async () => {
+    const fetchSkills = async () => {
+      try {
         const querySnapshot = await getDocs(skillsCollectionRef);
         const skillsData = [];
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.userId === user.uid) {
-            skillsData.push(data);
-          }
+          skillsData.push(doc.data());
         });
-        setSkillsList(skillsData);
-      };
-      querySkills();
-    }
+        setSkills(skillsData);
+      } catch (error) {
+        console.error('Error fetching skills data: ', error);
+      } finally {
+        setIsLoading(false); 
+      }
+    };
+
+    fetchSkills();
   }, [skillsCollectionRef]);
 
   return (
     <div>
-      {skillsList.map((skill, index) => (
-        <div className='' key={`${skill.skill}-${index}`}>
-          <h2>{skill.skill}</h2>
-          <p>{skill.subSkill}</p>
-        </div>
-      ))}
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        skills.map((skill, index) => (
+          <div className="" key={`${skill.skill}-${index}`}>
+            <h2>{skill.skill}</h2>
+            <p>{skill.subSkill}</p>
+          </div>
+        ))
+      )}
     </div>
   );
-};
+}
 
 export default SkillsSect;
