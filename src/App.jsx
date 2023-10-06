@@ -28,8 +28,7 @@ const App = () => {
         <Link to='/signup'>SignUp</Link> 
         ) : ( 
         <>
-          <Link to='/createpost'>Create Post</ Link>
-        <button onClick={signUserOut} className="login-btn">Sign Out</button>
+        <button onClick={signUserOut} className="signup-btn">Sign Out</button>
         </>
         )}
       </nav>
