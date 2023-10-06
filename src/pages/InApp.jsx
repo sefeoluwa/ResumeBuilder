@@ -6,15 +6,19 @@ import { useNavigate } from 'react-router-dom';
 
 function InApp({ isAuth }) {
 
+
     let navigate = useNavigate();
     useEffect(() => {
         if (!isAuth) {
           navigate('/signup')
+        } else {
+          navigate('/')
         }
       }, [isAuth, navigate]);
 
 
   const [activeSection, setActiveSection] = useState('content');
+ 
 
   const handleContentButtonClick = () => {
     setActiveSection('content');
@@ -23,6 +27,7 @@ function InApp({ isAuth }) {
   const handleCustomizeButtonClick = () => {
     setActiveSection('customize');
   };
+
 
   return (
     <div className="flex justify-between flex-wrap">
