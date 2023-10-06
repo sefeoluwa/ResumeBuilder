@@ -12,7 +12,7 @@ import DataContext from '../Context'
 
 const SkillForm = ({ onSaveSkill, onClose, isAuth }) => {
 
-  const { skillData, setSkillData, handleSkillChange, skills } = useContext(DataContext)
+  const { skillData, setSkillData, handleSkillChange} = useContext(DataContext)
 
   const [skillsList, setSkillsList] = useState([]);
 
@@ -47,10 +47,11 @@ const SkillForm = ({ onSaveSkill, onClose, isAuth }) => {
       querySnapshot.forEach((doc) => {
         skillsData.push(doc.data());
       });
-      setSkillsList(skillsData);
     };
     fetchSkills();
   }, [skillsCollectionRef]);
+
+
   const handleCancel = () => {
     onClose();
   };
