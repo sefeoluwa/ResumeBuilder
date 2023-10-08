@@ -214,11 +214,45 @@ const [inputErrors, setInputErrors] = useState({
   website: '',
 });
 
-const handleSave = () => {
+const linksCollectionRef = collection(db, 'links')
+
+const handleSave = async () => {
   // Check if there are any input errors
   if (Object.values(inputErrors).every((error) => error === '')) {
     onSaveSocialData(socialData);
     onClose();
+  }
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const querySnapshot = await getDocs(linksCollectionRef);
+      let existingDocId = null;
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.userId === user.uid) {
+          existingDocId = doc.id
+        }
+      });
+      if (existingDocId) {
+        await updateDoc(doc(linksCollectionRef, existingDocId), {
+          linkedin: socialData.linkedin,
+          twitter: socialData.twitter,
+          github: socialData.github,
+          website: socialData.website,
+        });
+      } else {
+        await addDoc(linksCollectionRef, {
+          userId: user.uid,
+          linkedin: socialData.linkedin,
+          twitter: socialData.twitter,
+          github: socialData.github,
+          website: socialData.website,
+        })
+      }
+    }
+  } catch (error) {
+    console.error('Error saving links' , error)
   }
 };
 
