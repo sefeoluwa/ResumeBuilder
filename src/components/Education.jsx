@@ -1,27 +1,59 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { FaGraduationCap, FaCheck } from 'react-icons/fa'
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd } from 'react-icons/gr'
-import { useState } from 'react'
-import { useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db, auth } from '../firebase-config';
 import DataContext from '../Context'
 
-const EducationForm = ({ onSaveEducation, onClose }) => {
+const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
 
   const { educationData, setEducationData, handleEduChange } = useContext(DataContext)
 
-  const handleSave = () => {
+  const eduCollectionRef = collection(db, 'education')
+
+  const handleSave = async () => {
     onSaveEducation(educationData);
-    onClose()
-    setEducationData({
-    degree: '',
-    school: '',
-    country: '',
-    start: '',
-    end: '',
-    });
+    onClose();
+
+    try {
+      const user = auth.currentUser; 
+      if (user) {
+        const docRef = await addDoc(eduCollectionRef, {
+          userId: user.uid,
+          degree: educationData.degree,
+          school: educationData.school,
+          country: educationData.country,
+          start: educationData.start,
+          end: educationData.end,
+        });
+        setEducationData({
+          degree: '',
+          school: '',
+          country: '',
+          start: '',
+          end: '',
+        });
+      }
+    } catch (error) {
+      console.error('Error adding education data: ', error);
+    }
   };
+
+  useEffect(() => {
+    const fetchEducation = async () => {
+      const querySnapshot = await getDocs(eduCollectionRef);
+      const eduData = [];
+      querySnapshot.forEach((doc) => {
+        eduData.push(doc.data());
+      });
+    };
+    fetchEducation();
+  }, [eduCollectionRef]);
+
 
   const handleCancel = () => {
     onClose();
