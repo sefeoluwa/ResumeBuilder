@@ -14,8 +14,6 @@ const SkillForm = ({ onSaveSkill, onClose, isAuth }) => {
 
   const { skillData, setSkillData, handleSkillChange} = useContext(DataContext)
 
-  const [skillsList, setSkillsList] = useState([]);
-
   const skillsCollectionRef = collection(db, 'skills'); 
 
   const handleSave = async () => {
