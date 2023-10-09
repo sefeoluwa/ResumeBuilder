@@ -27,6 +27,7 @@ function SkillsSect() {
 
   return (
     <div>
+      <h2>Skills</h2>
       {isLoading ? (
         <div>Loading...</div>
       ) : (

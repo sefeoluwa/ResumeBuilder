@@ -28,6 +28,7 @@ useEffect(() => {
 
   return (
     <div>
+      <h2>Education</h2>
     {isLoading ? (
       <div className="">Loading...</div>
     ) : (

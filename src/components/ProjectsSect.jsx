@@ -28,6 +28,7 @@ const ProjectsSect = () => {
 
   return (
     <div>
+      <h2>Projects</h2>
       {isLoading ? (
         <div className="">Loading...</div>
       ) : (
