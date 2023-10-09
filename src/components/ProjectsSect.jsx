@@ -28,7 +28,7 @@ const ProjectsSect = () => {
 
   return (
     <div>
-      <h2>Projects</h2>
+      <h2 className='font-bold text-center text-[18px]'>Projects</h2>
       {isLoading ? (
         <div className="">Loading...</div>
       ) : (

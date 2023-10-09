@@ -27,7 +27,7 @@ useEffect(() => {
 
   return (
     <div>
-      <h2>Experience</h2>
+      <h2 className='font-bold text-center text-[18px]'>Experience</h2>
       {isLoading ? (
         <div className="">Loading...</div>
       ) : (

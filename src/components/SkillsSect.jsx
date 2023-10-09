@@ -27,7 +27,7 @@ function SkillsSect() {
 
   return (
     <div>
-      <h2>Skills</h2>
+      <h2 className='font-bold text-center text-[18px]'>Skills</h2>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
