@@ -4,7 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 
 const ExpSect = () => {
 const [experience, setExperience] = useState([])
-const [isLoading, setIsLoading] = useState(null)
+const [isLoading, setIsLoading] = useState(true)
 const expCollectionRef = collection(db, 'experience')
 
 useEffect(() => {
