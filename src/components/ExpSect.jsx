@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
+import   loader  from '/src/assets/loader.gif'
 
 const ExpSect = () => {
 const [experience, setExperience] = useState([])
@@ -29,7 +30,9 @@ useEffect(() => {
     <div>
       <h2 className='font-bold text-center text-[18px]'>Experience</h2>
       {isLoading ? (
-        <div className="">Loading...</div>
+        <div className='w-full flex justify-center items-center'>
+        <img src={loader} alt="Loading..." className='w-[15%]' />
+      </div>
       ) : (
         experience.map((exp, index) => (
           <div className="" key={`${exp.exp}-${index}`}>

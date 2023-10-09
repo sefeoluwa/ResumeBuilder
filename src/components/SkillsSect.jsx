@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
+import   loader  from '/src/assets/loader.gif'
 
 function SkillsSect() {
   const [skills, setSkills] = useState([]);
@@ -29,7 +30,9 @@ function SkillsSect() {
     <div>
       <h2 className='font-bold text-center text-[18px]'>Skills</h2>
       {isLoading ? (
-        <div>Loading...</div>
+          <div className='w-full flex justify-center items-center'>
+          <img src={loader} alt="Loading..." className='w-[15%]' />
+        </div>
       ) : (
         skills.map((skill, index) => (
           <div className="" key={`${skill.skill}-${index}`}>

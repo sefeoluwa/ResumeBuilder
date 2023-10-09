@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
+import   loader  from '/src/assets/loader.gif'
 
 const ProjectsSect = () => {
   const projectsCollectionRef = collection(db, 'projects')
@@ -30,7 +31,9 @@ const ProjectsSect = () => {
     <div>
       <h2 className='font-bold text-center text-[18px]'>Projects</h2>
       {isLoading ? (
-        <div className="">Loading...</div>
+           <div className='w-full flex justify-center items-center'>
+           <img src={loader} alt="Loading..." className='w-[15%]' />
+         </div>
       ) : (
         projects.map((project, index) => (
           <div className="" key={`${project.projectName}-${index}`}>

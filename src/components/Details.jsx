@@ -4,6 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { AiOutlineMail, AiFillLinkedin, AiFillGithub, AiFillTwitterCircle } from 'react-icons/ai'
 import { BsFillTelephoneFill, BsFillHouseDoorFill } from 'react-icons/bs'
 import {FaLocationArrow} from 'react-icons/fa'
+import   loader  from '/src/assets/loader.gif'
 
 function Details() {
 // Personal Details section
@@ -64,7 +65,9 @@ function Details() {
     <>
     <div className='h-[10%] p-4'>
       {isLoading ? (
-        <div>Loading...</div>
+        <div className='w-full flex justify-center items-center'>
+        <img src={loader} alt="Loading..." className='w-[15%]' />
+      </div>
       ) : (
         personalList.map((personal, index) => (
           <div className=" flex flex-col" key={`${personal.fullName}-${index}`}>
