@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
+import { AiOutlineMail, AiFillLinkedin, AiFillGithub, AiFillTwitterCircle } from 'react-icons/ai'
+import { BsFillTelephoneFill, BsFillHouseDoorFill } from 'react-icons/bs'
+import {FaLocationArrow} from 'react-icons/fa'
 
 function Details() {
 // Personal Details section
@@ -59,17 +62,24 @@ function Details() {
 
   return (
     <>
-    <div>
+    <div className='h-[10%] p-4'>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         personalList.map((personal, index) => (
-          <div className="" key={`${personal.fullName}-${index}`}>
-            <h2>{personal.fullName}</h2>
-            <p>{personal.email}</p>
-            <p>{personal.number}</p>
-            <p>{personal.address}</p>
-            <p>{personal.title}</p>
+          <div className=" flex flex-col" key={`${personal.fullName}-${index}`}>
+            <div className="">
+            <h1 className='text-[32px] font-bold text-center pb-3'>{personal.fullName}</h1>
+            </div>
+            <div className="">
+            <p className='text-[25px] text-center pb-3'>{personal.title}</p>
+            </div>
+           <div className="flex justify-around">
+           <p> <AiOutlineMail /> {personal.email}</p>
+            <p> <BsFillTelephoneFill /> {personal.number}</p>
+            <p> <BsFillHouseDoorFill /> {personal.address}</p>
+          
+           </div>
           </div>
         ))
       )}
@@ -79,16 +89,20 @@ function Details() {
       {linksList.map((link, index) => (
          <div className="flex justify-between" key={`${link.uid}-${index}`}>
          <a href={link.linkedin} target="_blank" rel="noopener noreferrer">
+          <AiFillLinkedin />
            LinkedIn
          </a>
          <a href={link.github} target="_blank" rel="noopener noreferrer">
+          <AiFillGithub />
            GitHub
          </a>
          <a href={link.twitter} target="_blank" rel="noopener noreferrer">
+          <AiFillTwitterCircle />
            Twitter
          </a>
          <a href={link.website} target="_blank" rel="noopener noreferrer">
-           Website
+          <FaLocationArrow />
+           Portfolio
          </a>
         </div>
       ))}
