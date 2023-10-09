@@ -110,23 +110,25 @@ const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
    <div className=" w-[45%] flex flex-col gap-2 mt-3">
       <label htmlFor="title">Start Date</label>
         <input 
-        type="date" 
+        type="text" 
         name="start" 
         id="title" 
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
         value={educationData.start}
         onChange={handleEduChange} 
+        placeholder='Enter start date'
         />
     </div>
     <div className="w-[45%] flex flex-col gap-2 mt-3">
       <label htmlFor="title">End Date</label>
         <input 
-        type="date" 
+        type="text" 
         name="end" 
         id="title" 
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
         value={educationData.end}
         onChange={handleEduChange} 
+        placeholder='Enter end date'
         />
     </div>
    </div>

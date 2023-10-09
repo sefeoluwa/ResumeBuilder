@@ -88,8 +88,9 @@ const projectsCollectionRef = collection(db, 'projects')
    <div className=" w-[45%] flex flex-col gap-2 mt-3">
       <label htmlFor="start">Start Date</label>
         <input 
-        type="date" 
+        type="text" 
         name="start" 
+        placeholder='Enter start date'
         id="start" 
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
         value={projectsData.start}
@@ -99,12 +100,13 @@ const projectsCollectionRef = collection(db, 'projects')
     <div className="w-[45%] flex flex-col gap-2 mt-3">
       <label htmlFor="end">End Date</label>
         <input 
-        type="date" 
+        type="text" 
         name="end" 
         id="end" 
         value={projectsData.end}
         className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
         onChange={handleProjectChange} 
+        placeholder='Enter end date'
         />
     </div>
    </div>
