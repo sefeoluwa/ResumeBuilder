@@ -1,26 +1,59 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { VscTriangleDown } from 'react-icons/vsc'
 import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import DataContext from '../Context';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db, auth } from '../firebase-config';
 
 
 
-const ProjectsForm = ({ onSaveProjects, onClose }) => {
+const ProjectsForm = ({ onSaveProjects, onClose, isAuth }) => {
 const { projectsData, setProjectsData, handleProjectChange } = useContext(DataContext)
 
-  const handleSave = () => {
+const projectsCollectionRef = collection(db, 'projects')
+
+
+  const handleSave = async () => {
     onSaveProjects(projectsData);
-    setProjectsData({
-      projectName: '',
-      start: '',
-      end: '',
-      description: '',
-    });
+    onClose();
+
+    try {
+      const user = auth.currentUser; 
+      if (user) {
+        const docRef = await addDoc(projectsCollectionRef, {
+          userId: user.uid,
+          projectName: projectsData.projectName,
+          start: projectsData.start,
+          end: projectsData.end,
+          description: projectsData.description,
+        });
+        setProjectsData({
+          projectName: '',
+          start: '',
+          end: '',
+          description: '',
+        });
+      }
+    } catch (error) {
+      console.error('Error adding project data: ', error);
+    }
   };
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const querySnapshot = await getDocs(projectsCollectionRef);
+      const projectsData = [];
+      querySnapshot.forEach((doc) => {
+        projectsData.push(doc.data());
+      });
+    };
+    fetchProjects();
+  }, [projectsCollectionRef]);
 
   const handleCancel = () => {
     onClose();
