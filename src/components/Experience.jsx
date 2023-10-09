@@ -1,27 +1,60 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { VscTriangleDown } from 'react-icons/vsc'
 import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
-import { useContext, useState } from 'react';
+import { useState, useContext, useEffect } from 'react'
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db, auth } from '../firebase-config';
 import DataContext from '../Context';
 
 
-
-const ExperienceForm = ({ onSaveExperience, onClose }) => {
+const ExperienceForm = ({ onSaveExperience, onClose, isAuth }) => {
   const { experienceData, setExperienceData, handleExpChange } = useContext(DataContext)
+  const expCollectionRef = collection(db, 'experience')
 
-  const handleSave = () => {
+  const handleSave = async () => {
     onSaveExperience(experienceData);
-    setExperienceData({
-      role: '',
-      company: '',
-      start: '',
-      end: '',
-      description: '',
-    });
+    onClose();
+
+    try {
+      const user = auth.currentUser; 
+      if (user) {
+        const docRef = await addDoc(expCollectionRef, {
+          userId: user.uid,
+          role: experienceData.role,
+          company: experienceData.company,
+          start: experienceData.start,
+          end: experienceData.end,
+          description: experienceData.description,
+        });
+        setExperienceData({
+          role: '',
+          company: '',
+          start: '',
+          end: '',
+          description: '',
+        });
+      }
+    } catch (error) {
+      console.error('Error adding experience data: ', error);
+    }
   };
+
+  useEffect(() => {
+    const fetchExp = async () => {
+      const querySnapshot = await getDocs(expCollectionRef);
+      const experienceData = [];
+      querySnapshot.forEach((doc) => {
+        experienceData.push(doc.data());
+      });
+    };
+    fetchExp();
+  }, [expCollectionRef]);
+
+
 
   const handleCancel = () => {
     onClose();
