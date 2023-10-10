@@ -2,7 +2,7 @@ import { Details, EduSect, ExpSect, SkillsSect, ProjectsSect } from '../componen
 
 function Resume() {
   return (
-   <div className='flex justify-start flex-col  w-[50%]'>
+   <div className='resume flex justify-start flex-col  h-[29.7cm] w-[21cm] mr-20 ' >
    <Details />
    <SkillsSect />
    <EduSect />
