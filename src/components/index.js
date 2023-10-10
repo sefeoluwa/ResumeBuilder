@@ -16,9 +16,11 @@ import ExpSect from './ExpSect'
 import Projects from './Projects'
 import ProjectsSect from './ProjectsSect'
 import SkillsSect from './SkillsSect'
+import { PersonalDetails } from "./PersonalDetails";
 
 
 export {
+    PersonalDetails,
     CenterTopBar,
     Education,
     Experience,
