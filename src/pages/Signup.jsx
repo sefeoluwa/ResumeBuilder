@@ -18,10 +18,10 @@ function Signup({ setIsAuth }) {
     }
 
   return (
-    <div className='signUpPage flex items-center justify-center h-[90vh]'>
-   <div className=" flex gap-5 flex-col items-center justify-center h-[40%] w-[40%]">
-    <FcGoogle size='10em' />
-   <button className='login-with-google-btn' onClick={signInWithGoogle}>Sign Up with Google</button>
+    <div className='signUpPage flex items-center justify-center h-[90vh] pb-20'>
+   <div className="signupContainer flex gap-5 flex-col items-center justify-center h-[40%] w-[40%] cursor-pointer">
+    <FcGoogle size='10em' onClick={signInWithGoogle} />
+   <button className='login-with-google-btn font-bold' onClick={signInWithGoogle}>Sign Up with Google</button>
    </div>
   </div>
   )
