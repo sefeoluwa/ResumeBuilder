@@ -5,6 +5,7 @@ import { useState } from "react"
 import { signOut } from "firebase/auth"
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import { DataProvider } from './Context';
+import { logoTransparent } from './assets'
 
 const App = () => {
 
@@ -22,8 +23,11 @@ const App = () => {
 
   return (
     <Router>
-            <nav className="nav">
-        <Link to='/'>Home</Link>
+            <nav className="nav flex justify-center"> 
+         <div className="pt-4 flex justify-between w-[50%]">
+         <Link to='/' className="pt-1">
+          <img src={logoTransparent} alt="ProFolio logo" className="w-[100px]"/>
+          </Link>
        {!isAuth ? ( 
         <Link to='/signup'>SignUp</Link> 
         ) : ( 
@@ -31,6 +35,7 @@ const App = () => {
         <button onClick={signUserOut} className="signup-btn">Sign Out</button>
         </>
         )}
+       </div>
       </nav>
       <DataProvider>
         <Routes>
