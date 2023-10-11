@@ -23,16 +23,16 @@ const App = () => {
 
   return (
     <Router>
-            <nav className="nav flex justify-center"> 
+            <nav className="nav flex pb-2 justify-center"> 
          <div className="pt-4 flex justify-between w-[50%]">
          <Link to='/' className="pt-1">
           <img src={logoTransparent} alt="ProFolio logo" className="w-[100px]"/>
           </Link>
        {!isAuth ? ( 
-        <Link to='/signup'>SignUp</Link> 
+        <Link to='/signup' className="signupBtn font-bold text-center pt-2">SignUp</Link> 
         ) : ( 
         <>
-        <button onClick={signUserOut} className="signup-btn">Sign Out</button>
+        <button onClick={signUserOut} className="signupBtn font-bold">Sign Out</button>
         </>
         )}
        </div>
