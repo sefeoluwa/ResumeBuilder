@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
-import { AiOutlineMail, AiFillLinkedin, AiFillGithub, AiFillTwitterCircle } from 'react-icons/ai'
+import { AiFillLinkedin, AiFillGithub, AiFillTwitterCircle } from 'react-icons/ai'
+import { MdMail } from 'react-icons/md'
 import { BsFillTelephoneFill, BsFillHouseDoorFill } from 'react-icons/bs'
-import {FaLocationArrow} from 'react-icons/fa'
+import {FaLocationArrow} from 'react-icons/fa6'
 import   loader  from '/src/assets/loader.gif'
 
 function Details() {
@@ -63,7 +64,7 @@ function Details() {
 
   return (
     <>
-    <div className='h-[10%] p-4'>
+    <div className=''>
       {isLoading ? (
         <div className='w-full flex justify-center items-center'>
         <img src={loader} alt="Loading..." className='w-[15%]' />
@@ -77,10 +78,16 @@ function Details() {
             <div className="">
             <p className='text-[25px] text-center pb-3'>{personal.title}</p>
             </div>
-           <div className="flex justify-around">
-           <p> <AiOutlineMail /> {personal.email}</p>
-            <p> <BsFillTelephoneFill /> {personal.number}</p>
-            <p> <BsFillHouseDoorFill /> {personal.address}</p>
+           <div className="flex justify-between p-2 mb-3">
+           <p className='flex p-2'> <MdMail /> 
+           <p className='mt-[-4px] pl-2'>{personal.email}</p>
+           </p>
+            <p className='flex'> <BsFillTelephoneFill /> 
+            <p className='mt-[-4px] pl-2'>{personal.number}</p>
+            </p>
+            <p className='flex'> <BsFillHouseDoorFill /> 
+            <p className='mt-[-4px] pl-2'>{personal.address}</p>
+            </p>
           
            </div>
           </div>
@@ -90,22 +97,22 @@ function Details() {
 
     <div className="">
       {linksList.map((link, index) => (
-         <div className="flex justify-between" key={`${link.uid}-${index}`}>
-         <a href={link.linkedin} target="_blank" rel="noopener noreferrer">
+         <div className="flex justify-center" key={`${link.uid}-${index}`}>
+         <a href={link.linkedin} target="_blank" rel="noopener noreferrer" className='flex'>
           <AiFillLinkedin />
-           LinkedIn
+          <p className='mt-[-4px] ml-1 '>LinkedIn</p>
          </a>
-         <a href={link.github} target="_blank" rel="noopener noreferrer">
+         <a href={link.github} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
           <AiFillGithub />
-           GitHub
+          <p className='mt-[-4px] ml-1'> GitHub</p>
          </a>
-         <a href={link.twitter} target="_blank" rel="noopener noreferrer">
+         <a href={link.twitter} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
           <AiFillTwitterCircle />
-           Twitter
+           <p className='mt-[-4px] ml-1'>Twitter</p>
          </a>
-         <a href={link.website} target="_blank" rel="noopener noreferrer">
+         <a href={link.website} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
           <FaLocationArrow />
-           Portfolio
+          <p className='mt-[-4px] ml-1'> Portfolio</p>
          </a>
         </div>
       ))}
