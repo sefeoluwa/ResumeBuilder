@@ -27,7 +27,7 @@ useEffect(() => {
 }, [expCollectionRef])
 
   return (
-    <div>
+    <div className='p-5 border-b-[5px] ml-3 mr-3'>
       <h2 className='font-bold text-center text-[18px]'>Experience</h2>
       {isLoading ? (
         <div className='w-full flex justify-center items-center'>
@@ -38,8 +38,10 @@ useEffect(() => {
           <div className="" key={`${exp.exp}-${index}`}>
             <h3>{exp.role}</h3>
             <p>{exp.company}</p>
-            <p>{exp.start}</p>
+           <div className="italic flex gap-2">
+           <p>{exp.start} /</p>
             <p>{exp.end}</p>
+           </div>
             <p>{exp.description}</p>
   
           </div>

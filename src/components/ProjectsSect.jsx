@@ -28,7 +28,7 @@ const ProjectsSect = () => {
 
 
   return (
-    <div>
+    <div className='p-5 ml-3 mr-3'>
       <h2 className='font-bold text-center text-[18px]'>Projects</h2>
       {isLoading ? (
            <div className='w-full flex justify-center items-center'>
@@ -38,8 +38,10 @@ const ProjectsSect = () => {
         projects.map((project, index) => (
           <div className="" key={`${project.projectName}-${index}`}>
             <h3>{project.projectName}</h3>
-            <p>{project.start}</p>
+           <div className="flex gap-2">
+           <p>{project.start} /</p>
             <p>{project.end}</p>
+           </div>
             <p>{project.description}</p>
           </div>
         ))
