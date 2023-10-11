@@ -29,7 +29,7 @@ function SkillsSect() {
   return (
     <>
    <h2 className='font-bold text-center text-[18px]'>Skills</h2>
-    <div className='ml-3 p-3 flex justify-start flex-wrap gap-5'>
+    <div className='ml-3 p-3 flex justify-start flex-wrap gap-5 border-b-[5px] pb-5'>
       {isLoading ? (
           <div className='w-full flex justify-center items-center'>
           <img src={loader} alt="Loading..." className='w-[15%]' />
@@ -37,9 +37,9 @@ function SkillsSect() {
       ) : (
         skills.map((skill, index) => (
           <div className="" key={`${skill.skill}-${index}`}>
-           <div className="mt-2 w-[150px]">
-           <h2>{skill.skill}</h2>
-            <p>{skill.subSkill}</p>
+           <div className="mt-2 w-[180px]">
+           <h2 className='text-[17px]'>{skill.skill}</h2>
+            <p className='italic text-[15px]'>{skill.subSkill}</p>
            </div>
           </div>
         ))
