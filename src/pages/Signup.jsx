@@ -17,8 +17,10 @@ function Signup({ setIsAuth }) {
     }
 
   return (
-    <div className='signUpPage'>
-    <button className='login-with-google-btn' onClick={signInWithGoogle}>Sign Up with Google</button>
+    <div className='signUpPage flex items-center justify-center h-[90vh]'>
+   <div className=" flex items-center justify-center h-[40%] w-[40%]">
+   <button className='login-with-google-btn' onClick={signInWithGoogle}>Sign Up with Google</button>
+   </div>
   </div>
   )
 }
