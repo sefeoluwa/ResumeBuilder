@@ -1,11 +1,11 @@
 import logoBlack from './logoBlack.svg'
-import logoWhite from './logoWhite'
-import logoColor from './logoColor'
-import logoTransparent from './logoTransparent'
-import logo from './logo'
+import logoWhite from './logoWhite.svg'
+import logoColor from './logoColor.svg'
+import logoTransparent from './logoTransparent.svg'
+import logo from './logo.png'
 
 
-export default {
+export  {
     logoBlack,
     logoColor,
     logoTransparent,
