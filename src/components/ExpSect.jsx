@@ -36,8 +36,10 @@ useEffect(() => {
       ) : (
         experience.map((exp, index) => (
           <div className="text-[14px]" key={`${exp.exp}-${index}`}>
-            <h3 className='font-bold'>{exp.role}</h3>
+            <div className="flex gap-2">
+            <h3 className='font-bold'>{exp.role},</h3>
             <p className='italic'>{exp.company}</p>
+            </div>
            <div className="italic flex gap-2">
            {exp.start && (
               <p>{exp.start} |</p>

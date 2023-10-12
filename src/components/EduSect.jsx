@@ -38,9 +38,11 @@ useEffect(() => {
        </div>
     ) : (
       education.map((edu, index) => (
-        <div className="" key={`${edu.education}-${index}`}>
-          <h2 className='font-semibold'>{edu.degree}</h2>
+        <div className="mb-3" key={`${edu.education}-${index}`}>
+          <div className="flex gap-2">
+          <h2 className='font-semibold'>{edu.degree},</h2>
           <p className='italic'>{edu.school}</p>
+          </div>
           <p>{edu.country}</p>
           <div className="flex gap-2 italic">
             {edu.start && (
