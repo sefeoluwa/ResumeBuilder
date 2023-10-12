@@ -96,27 +96,36 @@ function Details() {
     </div>
 
     <div className="">
-      {linksList.map((link, index) => (
-         <div className="flex justify-center" key={`${link.uid}-${index}`}>
-         <a href={link.linkedin} target="_blank" rel="noopener noreferrer" className='flex'>
+  {linksList.map((link, index) => (
+    <div className="flex justify-center" key={`${link.uid}-${index}`}>
+      {link.linkedin && (
+        <a href={link.linkedin} target="_blank" rel="noopener noreferrer" className='flex'>
           <AiFillLinkedin />
-          <p className='mt-[-4px] ml-1 '>LinkedIn</p>
-         </a>
-         <a href={link.github} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
+          <p className='mt-[-4px] ml-1'>LinkedIn</p>
+        </a>
+      )}
+      {link.github && (
+        <a href={link.github} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
           <AiFillGithub />
-          <p className='mt-[-4px] ml-1'> GitHub</p>
-         </a>
-         <a href={link.twitter} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
+          <p className='mt-[-4px] ml-1'>GitHub</p>
+        </a>
+      )}
+      {link.twitter && (
+        <a href={link.twitter} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
           <AiFillTwitterCircle />
-           <p className='mt-[-4px] ml-1'>Twitter</p>
-         </a>
-         <a href={link.website} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
+          <p className='mt-[-4px] ml-1'>Twitter</p>
+        </a>
+      )}
+      {link.website && (
+        <a href={link.website} target="_blank" rel="noopener noreferrer" className='flex ml-5'>
           <FaLocationArrow />
-          <p className='mt-[-4px] ml-1'> Portfolio</p>
-         </a>
-        </div>
-      ))}
+          <p className='mt-[-4px] ml-1'>Portfolio</p>
+        </a>
+      )}
     </div>
+  ))}
+</div>
+
      
   </>
   );
