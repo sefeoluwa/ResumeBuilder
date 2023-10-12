@@ -78,7 +78,7 @@ function Details() {
             <div className="">
             <p className='text-[22px] font-bold italic text-center pb-1'>{personal.title}</p>
             </div>
-           <div className="flex justify-between p-2 mb-2 ">
+           <div className="flex justify-around p-2 mb-2 ">
            <p className='flex p-2'> <MdMail /> 
            <p className='mt-[-4px] pl-2'>{personal.email}</p>
            </p>
@@ -100,7 +100,7 @@ function Details() {
 
     <div className="">
   {linksList.map((link, index) => (
-    <div className="flex justify-center" key={`${link.uid}-${index}`}>
+    <div className="flex justify-around" key={`${link.uid}-${index}`}>
       {link.linkedin && (
         <a href={link.linkedin} target="_blank" rel="noopener noreferrer" className='flex'>
           <AiFillLinkedin />
