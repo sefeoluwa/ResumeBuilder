@@ -71,14 +71,14 @@ function Details() {
       </div>
       ) : (
         personalList.map((personal, index) => (
-          <div className=" flex flex-col" key={`${personal.fullName}-${index}`}>
+          <div className=" flex flex-col" key={`${personal}-${index}`}>
             <div className="">
-            <h1 className='text-[32px] font-bold text-center pb-3'>{personal.fullName}</h1>
+            <h1 className='text-[32px] font-bold text-center pb-2'>{personal.fullName}</h1>
             </div>
             <div className="">
-            <p className='text-[25px] text-center pb-3'>{personal.title}</p>
+            <p className='text-[22px] font-bold italic text-center pb-1'>{personal.title}</p>
             </div>
-           <div className="flex justify-between p-2 mb-3">
+           <div className="flex justify-between p-2 mb-2 ">
            <p className='flex p-2'> <MdMail /> 
            <p className='mt-[-4px] pl-2'>{personal.email}</p>
            </p>
