@@ -82,13 +82,16 @@ function Details() {
            <p className='flex p-2'> <MdMail /> 
            <p className='mt-[-4px] pl-2'>{personal.email}</p>
            </p>
-            <p className='flex'> <BsFillTelephoneFill /> 
-            <p className='mt-[-4px] pl-2'>{personal.number}</p>
-            </p>
-            <p className='flex'> <BsFillHouseDoorFill /> 
-            <p className='mt-[-4px] pl-2'>{personal.address}</p>
-            </p>
-          
+           {personal.number && (
+             <p className='flex'> <BsFillTelephoneFill /> 
+             <p className='mt-[-4px] pl-2'>{personal.number}</p>
+             </p>
+           )}
+           {personal.address && (
+             <p className='flex'> <BsFillHouseDoorFill /> 
+             <p className='mt-[-4px] pl-2'>{personal.address}</p>
+             </p>
+           )}
            </div>
           </div>
         ))
