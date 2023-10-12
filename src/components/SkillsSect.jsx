@@ -37,9 +37,9 @@ function SkillsSect() {
       ) : (
         skills.map((skill, index) => (
           <div className="" key={`${skill.skill}-${index}`}>
-           <div className="mt-2 w-[180px]">
-           <h2 className='text-[17px]'>{skill.skill}</h2>
-            <p className='italic text-[13px]'>{skill.subSkill}</p>
+           <div className=" p-2.5 rounded-[10px]">
+           <h2 className='text-[17px]'>{skill.skill}  <span className='italic text-[14px]'>({skill.subSkill})</span></h2>
+           
            </div>
           </div>
         ))
