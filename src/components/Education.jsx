@@ -29,6 +29,7 @@ const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
           country: educationData.country,
           start: educationData.start,
           end: educationData.end,
+          description: educationData.description,
         });
         setEducationData({
           degree: '',
@@ -36,6 +37,7 @@ const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
           country: '',
           start: '',
           end: '',
+          description: '',
         });
       }
     } catch (error) {
@@ -132,6 +134,17 @@ const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
         />
     </div>
    </div>
+   <div className="h-[100px] flex flex-col gap-2 mt-3">
+      <label htmlFor="description">Description</label>
+        <textarea
+        name="description" 
+        id="description" 
+        className='bg-primary outline-none pl-2 pr-2 rounded-[10px] text-[14px] h-[40px] cursor-pointer'
+        value={educationData.description}
+        onChange={handleEduChange} 
+        placeholder='Give a description.'
+        />
+    </div>
    <div className="bg-secondary flex justify-end mt-6">
       <button className='mr-14 font-bold' onClick={handleCancel} >Cancel</button>
       <button className='savebtn flex justify-center items-center font-bold text-white rounded-[25px] w-[30%] h-[40px] p-5' type='submit'><FaCheck /> 

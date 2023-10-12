@@ -45,6 +45,7 @@ useEffect(() => {
           <div className="flex gap-2 italic">
             <p>{edu.start} /</p>
             <p>{edu.end}</p>
+            <p>{edu.description}</p>
           </div>
         </div>
     ))

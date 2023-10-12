@@ -63,13 +63,14 @@ export const DataProvider = ({ children }) => {
     setShowSkillForm(false);
   };
 
-  // Eduction Section ...................................................
+  // Education Section ...................................................
   const [educationData, setEducationData] = useState({
     degree: '',
     school: '',
     country: '',
     start: '',
     end: '',
+    description: null,
   });
 
   const [education, setEducation] = useState([]); 
