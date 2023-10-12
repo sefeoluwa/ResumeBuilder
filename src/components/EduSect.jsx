@@ -30,7 +30,7 @@ useEffect(() => {
   return (
     <>
     <h2 className='font-bold text-center text-[18px] mt-3'>Education</h2>
-    <div className='p-5 border-b-[5px] ml-3 mr-3'>
+    <div className='p-5 border-b-[5px] ml-3 mr-3 text-[14px]'>
       
     {isLoading ? (
          <div className='w-full flex justify-center items-center'>
@@ -40,11 +40,11 @@ useEffect(() => {
       education.map((edu, index) => (
         <div className="" key={`${edu.education}-${index}`}>
           <h2 className='font-semibold'>{edu.degree}</h2>
-          <p>{edu.school}</p>
+          <p className='italic'>{edu.school}</p>
           <p>{edu.country}</p>
           <div className="flex gap-2 italic">
             {edu.start && (
-              <p>{edu.start} -</p>
+              <p>{edu.start} |</p>
             )}
             {edu.end  && (
               <p>{edu.end}</p>

@@ -36,8 +36,8 @@ const ProjectsSect = () => {
          </div>
       ) : (
         projects.map((project, index) => (
-          <div className="" key={`${project.projectName}-${index}`}>
-            <h3>{project.projectName}</h3>
+          <div className="text-[14px]" key={`${project.projectName}-${index}`}>
+            <h3 className='font-bold'>{project.projectName}</h3>
            <div className="flex gap-2 italic">
            {project.start && (
             <p>{project.start} |</p>
