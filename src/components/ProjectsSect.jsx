@@ -38,9 +38,13 @@ const ProjectsSect = () => {
         projects.map((project, index) => (
           <div className="" key={`${project.projectName}-${index}`}>
             <h3>{project.projectName}</h3>
-           <div className="flex gap-2">
-           <p>{project.start} /</p>
-            <p>{project.end}</p>
+           <div className="flex gap-2 italic">
+           {project.start && (
+            <p>{project.start} |</p>
+           )}
+            {project.end && (
+              <p>{project.end}</p>
+            )}
            </div>
             <p>{project.description}</p>
           </div>

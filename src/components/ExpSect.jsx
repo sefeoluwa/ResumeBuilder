@@ -39,8 +39,12 @@ useEffect(() => {
             <h3>{exp.role}</h3>
             <p>{exp.company}</p>
            <div className="italic flex gap-2">
-           <p>{exp.start} /</p>
-            <p>{exp.end}</p>
+           {exp.start && (
+              <p>{exp.start} |</p>
+            )}
+            {exp.end  && (
+              <p>{exp.end}</p>
+            )}
            </div>
             <p>{exp.description}</p>
   

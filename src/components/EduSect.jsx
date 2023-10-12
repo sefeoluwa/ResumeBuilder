@@ -43,8 +43,12 @@ useEffect(() => {
           <p>{edu.school}</p>
           <p>{edu.country}</p>
           <div className="flex gap-2 italic">
-            <p>{edu.start} /</p>
-            <p>{edu.end}</p>
+            {edu.start && (
+              <p>{edu.start} -</p>
+            )}
+            {edu.end  && (
+              <p>{edu.end}</p>
+            )}
             <p>{edu.description}</p>
           </div>
         </div>
