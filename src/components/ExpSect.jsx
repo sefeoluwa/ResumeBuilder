@@ -30,7 +30,7 @@ useEffect(() => {
 
   return (
     <div className='p-5 border-b-[5px] ml-3 mr-3'>
-      <h2 className='font-bold text-center text-[18px]'>Experience</h2>
+      {experience.length > 0 && <h2 className='font-bold text-center text-[18px]'>Experience</h2>}
       {isLoading ? (
         <div className='w-full flex justify-center items-center'>
         <img src={loader} alt="Loading..." className='w-[15%]' />

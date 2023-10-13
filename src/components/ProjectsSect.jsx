@@ -20,7 +20,7 @@ const ProjectsSect = () => {
         })
         setProjects(projectsData)
       } catch (error) {
-        console.error('Error fetching skills data: ', error);
+        console.error('Error fetching projects data: ', error);
       } finally {
         setIsLoading(false); 
       }
@@ -31,7 +31,7 @@ const ProjectsSect = () => {
 
   return (
     <div className='p-5 ml-3 mr-3'>
-      <h2 className='font-bold text-center text-[18px]'>Projects</h2>
+     {projects.length > 0 && <h2 className='font-bold text-center text-[18px]'>Projects</h2>}
       {isLoading ? (
            <div className='w-full flex justify-center items-center'>
            <img src={loader} alt="Loading..." className='w-[15%]' />

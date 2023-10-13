@@ -28,7 +28,7 @@ function SkillsSect() {
 
   return (
     <>
-   <h2 className='font-bold text-center text-[18px]'>Skills</h2>
+   {skills.length > 0 && <h2 className='font-bold text-center text-[18px]'>Skills</h2>}
     <div className='ml-3 mr-3 p-3 flex justify-start flex-wrap gap-2 border-b-[5px] pb-5'>
       {isLoading ? (
           <div className='w-full flex justify-center items-center'>

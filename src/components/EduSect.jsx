@@ -30,7 +30,7 @@ useEffect(() => {
 
   return (
     <>
-    <h2 className='font-bold text-center text-[18px] mt-3'>Education</h2>
+   {education.length > 0 &&  <h2 className='font-bold text-center text-[18px] mt-3'>Education</h2>}
     <div className='p-5 border-b-[5px] ml-3 mr-3 text-[14px]'>
       
     {isLoading ? (
