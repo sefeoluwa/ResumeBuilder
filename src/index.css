@@ -39,6 +39,10 @@ body {
   margin-top: -3px;
 }
 
+.download{
+  background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%);
+}
+
 .savebtn{
   background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%);
 }
