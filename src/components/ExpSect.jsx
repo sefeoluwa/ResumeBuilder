@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import   loader  from '/src/assets/loader.gif'
+import { GoDash } from 'react-icons/go'
+
 
 const ExpSect = () => {
 const [experience, setExperience] = useState([])
@@ -36,20 +38,24 @@ useEffect(() => {
       ) : (
         experience.map((exp, index) => (
           <div className="text-[14px]" key={`${exp.exp}-${index}`}>
-            <div className="flex gap-2">
-            <h3 className='font-bold'>{exp.role},</h3>
-            <p className='italic'>{exp.company}</p>
+            <div className="flex gap-3">
+             <div className="w-[35%]">
+                <div className="flex gap-1">
+                  <h3 className='font-bold'>{exp.role},</h3>
+                  <p className='italic'>{exp.company}</p>
+               </div>
+                <div className="flex gap-1">
+                  {exp.start && (
+                    <p className='flex gap-1'>{exp.start}  <span className='mt-0.5'><GoDash /> </span></p>
+                  )}
+                 {exp.end  && (
+                    <p>{exp.end}</p>
+                 )}
+               </div>
+              </div>
+
+              <p>{exp.description}</p>
             </div>
-           <div className="italic flex gap-2">
-           {exp.start && (
-              <p>{exp.start} |</p>
-            )}
-            {exp.end  && (
-              <p>{exp.end}</p>
-            )}
-           </div>
-            <p>{exp.description}</p>
-  
           </div>
         ))
       )}

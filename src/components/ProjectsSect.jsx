@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import   loader  from '/src/assets/loader.gif'
+import { GoDash } from 'react-icons/go'
+
 
 const ProjectsSect = () => {
   const projectsCollectionRef = collection(db, 'projects')
@@ -37,16 +39,20 @@ const ProjectsSect = () => {
       ) : (
         projects.map((project, index) => (
           <div className="text-[14px]" key={`${project.projectName}-${index}`}>
-            <h3 className='font-bold'>{project.projectName}</h3>
-           <div className="flex gap-2 italic">
-           {project.start && (
-            <p>{project.start} |</p>
-           )}
-            {project.end && (
-              <p>{project.end}</p>
-            )}
-           </div>
+            <div className="flex gap-3">
+            <div className="w-[35%]">
+              <h3 className='font-bold'>{project.projectName}</h3>
+                <div className="flex gap-1">
+              {project.start && (
+                <p className='flex gap-1'>{project.start}  <span className='mt-0.5'><GoDash /> </span></p>
+              )}
+                {project.end && (
+                  <p>{project.end}</p>
+                )}
+              </div>
+            </div>
             <p>{project.description}</p>
+            </div>
           </div>
         ))
       )}
