@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState } from "react"
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 const DataContext = createContext()
@@ -142,8 +144,28 @@ export const DataProvider = ({ children }) => {
     setShowProjectsForm(false);
   };
 
+
+  // download button action
+  const generatePDF = () => {
+    const doc = new jsPDF();
+  
+    // Create an HTML element to contain the content you want to convert to a PDF.
+    const container = document.getElementById('resume');
+  
+    // Use html2canvas to capture the content as an image.
+    html2canvas(container).then((canvas) => {
+      // Add the captured image to the PDF.
+      const imgData = canvas.toDataURL('image/png');
+      doc.addImage(imgData, 'PNG', 10, 10, 190, 250);
+  
+      // Save or download the PDF.
+      doc.save('resume.pdf');
+    });
+  };
+
     return(
         <DataContext.Provider value={{ 
+            generatePDF,
             personalData, 
             setPersonalData, 
             handleInputChange, 
