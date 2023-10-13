@@ -1,18 +1,18 @@
-import { FaTrash } from 'react-icons/fa'
+import { FaFileDownload } from 'react-icons/fa'
 
 function centerTopBar() {
   return (
     <>
-    <div className="flex w-[100%] justify-between bg-white h-12 rounded-[10px] p-2 sticky top-[10px]">
-      <button className='flex justify-center w-[45%] pt-1'> 
-        <FaTrash style= {{
-          color: '#d21404',
+    <button className="download font-bold flex w-[100%] justify-between bg-white h-12 rounded-[10px] p-2 sticky top-[10px]">
+      <p className='flex justify-center w-full pt-1'> 
+        <FaFileDownload style= {{
+          color: '#fff',
           marginTop: '3px'
         }} />
-        <p className='text-delete ml-2 text-[16px]'>Clear</p>
-        </button>
-      <button className='w-[45%] bg-[#f2f2f2] rounded-[10px] text-[16px]'>Load Example</button>
-    </div>
+        <p className='text-white ml-2 text-[16px]'>Download PDF</p>
+        </p>
+      
+    </button>
     </>
   )
 }
