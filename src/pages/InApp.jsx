@@ -43,7 +43,9 @@ function InApp({ isAuth }) {
           {activeSection === 'customize' && <Customize />}
         </div>
       </div>
-      <Resume className='w-[45vw]'/>
+     <div className="resume max-w-[45vw]  flex justify-center items-center">
+     <Resume />
+     </div>
      </DataProvider>
     </div>
   );
