@@ -7,53 +7,61 @@ import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
 import { useContext, useState, useEffect } from 'react';
 import DataContext from '../Context';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 
 
 
 const ProjectsForm = ({ onSaveProjects, onClose, isAuth }) => {
-const { projectsData, setProjectsData, handleProjectChange } = useContext(DataContext)
+const { projectsData, handleProjectChange } = useContext(DataContext)
 
 const projectsCollectionRef = collection(db, 'projects')
 
 
-  const handleSave = async () => {
-    onSaveProjects(projectsData);
-    onClose();
+const handleSave = async (projectsData) => {
+  onSaveProjects(projectsData);
+  onClose();
 
-    try {
-      const user = auth.currentUser; 
-      if (user) {
-        const docRef = await addDoc(projectsCollectionRef, {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const querySnapshot = await getDocs(projectsCollectionRef);
+      const projectsDataArray = [];
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.userId === user.uid) {
+          projectsDataArray.push(data);
+        }
+      });
+
+      // Check if the user has existing project data
+      const existingProjectData = projectsDataArray.find((data) => data.userId === user.uid);
+
+      if (existingProjectData) {
+        // Update the existing document
+        await updateDoc(doc(projectsCollectionRef, existingProjectData.docId), {
+          projectName: projectsData.projectName,
+          start: projectsData.start,
+          end: projectsData.end,
+          description: projectsData.description,
+        });
+      } else {
+        // Create a new document since user data does not exist
+        await addDoc(projectsCollectionRef, {
           userId: user.uid,
           projectName: projectsData.projectName,
           start: projectsData.start,
           end: projectsData.end,
           description: projectsData.description,
         });
-        setProjectsData({
-          projectName: '',
-          start: '',
-          end: '',
-          description: '',
-        });
       }
-    } catch (error) {
-      console.error('Error adding project data: ', error);
     }
-  };
+  } catch (error) {
+    console.error('Error saving project data: ', error);
+  }
+};
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      const querySnapshot = await getDocs(projectsCollectionRef);
-      const projectsData = [];
-      querySnapshot.forEach((doc) => {
-        projectsData.push(doc.data());
-      });
-    };
-    fetchProjects();
-  }, [projectsCollectionRef]);
 
   const handleCancel = () => {
     onClose();

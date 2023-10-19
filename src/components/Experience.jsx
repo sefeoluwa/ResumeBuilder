@@ -6,13 +6,13 @@ import { VscTriangleDown } from 'react-icons/vsc'
 import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
 import { useState, useContext, useEffect } from 'react'
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import DataContext from '../Context';
 
 
 const ExperienceForm = ({ onSaveExperience, onClose, isAuth }) => {
-  const { experienceData, setExperienceData, handleExpChange } = useContext(DataContext)
+  const { experienceData, handleExpChange } = useContext(DataContext)
   const expCollectionRef = collection(db, 'experience')
 
   const handleSave = async () => {
@@ -22,21 +22,38 @@ const ExperienceForm = ({ onSaveExperience, onClose, isAuth }) => {
     try {
       const user = auth.currentUser; 
       if (user) {
-        const docRef = await addDoc(expCollectionRef, {
-          userId: user.uid,
-          role: experienceData.role,
-          company: experienceData.company,
-          start: experienceData.start,
-          end: experienceData.end,
-          description: experienceData.description,
-        });
-        setExperienceData({
-          role: '',
-          company: '',
-          start: '',
-          end: '',
-          description: '',
-        });
+        const querySnapshot = await getDocs(expCollectionRef);
+          const expData = [];
+          querySnapshot.forEach((doc) => {
+          const data = doc.data();
+         if (data.userId === user.uid) {
+            expData.push(data);
+         }
+          });
+        
+          // check for existing user data
+        const existingExuData = expData.find((data) => data.userId === user.uid)
+        if (existingExuData) {
+          // update neew data
+          await updateDoc(doc(expCollectionRef, existingExuData.docId), {
+            userId: user.uid,
+            role: experienceData.role,
+            company: experienceData.company,
+            start: experienceData.start,
+            end: experienceData.end,
+            description: experienceData.description,
+          })
+        } else {
+          await addDoc(expCollectionRef, {
+            userId: user.uid,
+            role: experienceData.role,
+            company: experienceData.company,
+            start: experienceData.start,
+            end: experienceData.end,
+            description: experienceData.description,
+  
+          })
+        }
       }
     } catch (error) {
       console.error('Error adding experience data: ', error);

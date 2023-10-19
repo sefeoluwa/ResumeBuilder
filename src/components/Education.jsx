@@ -4,14 +4,14 @@
 import { FaGraduationCap, FaCheck } from 'react-icons/fa'
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd } from 'react-icons/gr'
-import { useState, useContext, useEffect } from 'react'
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { useState, useContext } from 'react'
+import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import DataContext from '../Context'
 
 const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
 
-  const { educationData, setEducationData, handleEduChange } = useContext(DataContext)
+  const { educationData, handleEduChange } = useContext(DataContext)
 
   const eduCollectionRef = collection(db, 'education')
 
@@ -22,40 +22,46 @@ const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
     try {
       const user = auth.currentUser; 
       if (user) {
-        const docRef = await addDoc(eduCollectionRef, {
-          userId: user.uid,
-          degree: educationData.degree,
-          school: educationData.school,
-          country: educationData.country,
-          start: educationData.start,
-          end: educationData.end,
-          description: educationData.description,
-        });
-        setEducationData({
-          degree: '',
-          school: '',
-          country: '',
-          start: '',
-          end: '',
-          description: '',
-        });
+          const querySnapshot = await getDocs(eduCollectionRef);
+          const eduData = [];
+          querySnapshot.forEach((doc) => {
+          const data = doc.data();
+         if (data.userId === user.uid) {
+            eduData.push(data);
+         }
+          });
+
+          // check if user has existing eduData
+          const existingEduData = eduData.find((data) => data.userId === user.uid)
+          
+          if(existingEduData) {
+            // update data
+            await updateDoc(doc(eduCollectionRef, 
+              existingEduData.docId), {
+                userId: user.uid,
+                degree: educationData.degree,
+                school: educationData.school,
+                country: educationData.country,
+                start: educationData.start,
+                end: educationData.end,
+                description: educationData.description,
+              })
+          } else {
+            await addDoc(eduCollectionRef, {
+              userId: user.uid,
+              degree: educationData.degree,
+              school: educationData.school,
+              country: educationData.country,
+              start: educationData.start,
+              end: educationData.end,
+              description: educationData.description,
+            })
+          }
       }
     } catch (error) {
       console.error('Error adding education data: ', error);
     }
   };
-
-  useEffect(() => {
-    const fetchEducation = async () => {
-      const querySnapshot = await getDocs(eduCollectionRef);
-      const eduData = [];
-      querySnapshot.forEach((doc) => {
-        eduData.push(doc.data());
-      });
-    };
-    fetchEducation();
-  }, [eduCollectionRef]);
-
 
   const handleCancel = () => {
     onClose();
