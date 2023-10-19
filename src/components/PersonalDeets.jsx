@@ -5,14 +5,13 @@ import { VscTriangleDown } from 'react-icons/vsc'
 import { BsPersonBoundingBox } from 'react-icons/bs'
 import { FaLink, FaCheck } from 'react-icons/fa'
 import DataContext from '../Context'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 
 const PersonalCard = ({ onClose, onSavePersonalData }) => {
 
-  const { personalData, handleInputChange, setPersonalData} = useContext(DataContext);
-  const [personalList, setPersonalList] = useState([]);
+  const { personalData, handleInputChange } = useContext(DataContext);
 
   const personalCollectionRef = collection(db, 'personalDetails'); 
 
@@ -400,7 +399,7 @@ function personalDeets() {
   return (
     <>
     <Personal />
-    <Socials />
+    {/* <Socials /> */}
     </>
   )
 }
