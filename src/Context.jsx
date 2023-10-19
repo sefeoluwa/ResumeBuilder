@@ -147,19 +147,19 @@ export const DataProvider = ({ children }) => {
 
   // download button action
   const generatePDF = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF('p', 'mm', 'a4');
   
     // Create an HTML element to contain the content you want to convert to a PDF.
     const container = document.getElementById('resume');
   
     // Use html2canvas to capture the content as an image.
-    html2canvas(container).then((canvas) => {
+    html2canvas(container, { dpi: 300 }).then((canvas) => {
       // Add the captured image to the PDF.
-      const imgData = canvas.toDataURL('image/png');
-      doc.addImage(imgData, 'PNG', 10, 10, 190, 250);
+      const imgData = canvas.toDataURL('image/png', 1.0);
+      doc.addImage(imgData, 'JPEG', 10, 10, 190, 250);
   
       // Save or download the PDF.
-      doc.save('resume.pdf');
+      doc.save('My Resume.pdf');
     });
   };
 
