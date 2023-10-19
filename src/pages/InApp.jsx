@@ -32,7 +32,7 @@ function InApp({ isAuth }) {
   return (
     <div className="flex justify-between flex-wrap">
      <DataProvider>
-     <div className="flex flex-wrap gap-3 p-8 justify-between w-[40vw]">
+     <div className="flex xs:flex-col xl:flex-row gap-5 py-8 justify-start w-[40vw]">
         <LeftPanel
           onContentButtonClick={handleContentButtonClick}
           onCustomizeButtonClick={handleCustomizeButtonClick}
@@ -43,7 +43,7 @@ function InApp({ isAuth }) {
           {activeSection === 'customize' && <Customize />}
         </div>
       </div>
-     <div className="resume max-w-[45vw]  flex justify-center items-center">
+     <div className="resume w-[150mm] h-[270mm] xxl:min-w-[210mm] xxl:min-h-[297mm]  m-7 border-solid border-[4px] flex justify-center items-center">
      <Resume />
      </div>
      </DataProvider>
