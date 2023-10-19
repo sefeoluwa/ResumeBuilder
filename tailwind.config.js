@@ -10,7 +10,16 @@ export default {
         primary: "#f2f2f2",
         secondary: "#ffffff",
         delete: "#d21404"
-      }
+      },
+      screens: {
+        xs: "450px",
+        sm: '640px',
+        md: "710px",
+        lg: '1024px',
+        xl: '1280px',
+        xxl: '1536px',
+      },
+  
     },
   },
   plugins: [],
