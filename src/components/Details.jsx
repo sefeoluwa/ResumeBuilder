@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 // import { AiFillLinkedin, AiFillGithub, AiFillTwitterCircle } from 'react-icons/ai'
-import { MdMail } from 'react-icons/md'
-import { BsFillTelephoneFill, BsFillHouseDoorFill } from 'react-icons/bs'
+import { MdMail, MdPhone, MdHouse } from 'react-icons/md'
 // import {FaLocationArrow} from 'react-icons/fa6'
 import   loader  from '/src/assets/loader.gif'
 
@@ -78,19 +77,22 @@ function Details() {
             <div className="">
             <p className='text-[22px] font-bold italic text-center pb-1'>{personal.title}</p>
             </div>
-           <div className="flex justify-around  items-center p-2 mb-2 ">
-           <p className='flex p-2'> <MdMail /> 
-           <p className='mt-[-4px] pl-2'>{personal.email}</p>
-           </p>
+
+           <div className="flex justify-around mt-5  items-center p-2 ">
+           <div className='flex items-center p-2'> 
+           <p className='mt-[-4px] pl-2'> {personal.email}</p>
+           </div>
+
            {personal.number && (
-             <p className='flex'> <BsFillTelephoneFill /> 
+             <div className='flex items-center p-2'> 
              <p className='mt-[-4px] pl-2'>{personal.number}</p>
-             </p>
+             </div>
            )}
+           
            {personal.address && (
-             <p className='flex'> <BsFillHouseDoorFill /> 
+             <div className='flex items-center p-2'> 
              <p className='mt-[-4px] pl-2'>{personal.address}</p>
-             </p>
+             </div>
            )}
            </div>
           </div>

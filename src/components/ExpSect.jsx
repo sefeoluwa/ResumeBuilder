@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import   loader  from '/src/assets/loader.gif'
-import { GoDash } from 'react-icons/go'
 
 
 const ExpSect = () => {
@@ -46,7 +45,7 @@ useEffect(() => {
                </div>
                 <div className="flex gap-1">
                   {exp.start && (
-                    <p className='flex gap-1'>{exp.start}  <span className='mt-0.5'><GoDash /> </span></p>
+                    <p className='flex gap-1'>{exp.start}  <span> - </span></p>
                   )}
                  {exp.end  && (
                     <p>{exp.end}</p>

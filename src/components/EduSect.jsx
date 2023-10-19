@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import   loader  from '/src/assets/loader.gif'
-import { GoDash } from 'react-icons/go'
 
 const EduSect = () => {
  
@@ -48,7 +47,7 @@ useEffect(() => {
               </div>
               <div className="flex gap-1">
                 {edu.start && (
-                  <p className='flex gap-1'>{edu.start} <span className='mt-0.5'><GoDash /> </span></p>
+                  <p className='flex gap-1'>{edu.start} <span> - </span></p>
                 )}
                 {edu.end  && (
                   <p>{edu.end}</p>
