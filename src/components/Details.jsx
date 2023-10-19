@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
-import { AiFillLinkedin, AiFillGithub, AiFillTwitterCircle } from 'react-icons/ai'
+// import { AiFillLinkedin, AiFillGithub, AiFillTwitterCircle } from 'react-icons/ai'
 import { MdMail } from 'react-icons/md'
 import { BsFillTelephoneFill, BsFillHouseDoorFill } from 'react-icons/bs'
-import {FaLocationArrow} from 'react-icons/fa6'
+// import {FaLocationArrow} from 'react-icons/fa6'
 import   loader  from '/src/assets/loader.gif'
 
 function Details() {
@@ -15,8 +15,8 @@ function Details() {
 
   const [isLoading, setIsLoading] = useState(true); 
 
-  const linksCollectionRef = collection(db, 'links')
-  const [linksList, setLinksList] = useState([])
+  // const linksCollectionRef = collection(db, 'links')
+  // const [linksList, setLinksList] = useState([])
 
   useEffect(() => {
       const queryPersonalDetails = async () => {
@@ -42,25 +42,25 @@ function Details() {
     
   }, [setIsLoading, personalCollectionRef]);
 
-  useEffect(() => {
-    const fetchLinks = async () => {
-      try {
-        const querySnapshot = await getDocs(linksCollectionRef);
-        const linksData = []
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          const user = auth.currentUser;
-          if (data.userId === user.uid) {
-            linksData.push(data)
-          }
-        })
-        setLinksList(linksData)
-      } catch (error) {
-        setIsLoading(false);
-      }
-    }
-    fetchLinks()
-  }, [setIsLoading, linksCollectionRef])
+  // useEffect(() => {
+  //   const fetchLinks = async () => {
+  //     try {
+  //       const querySnapshot = await getDocs(linksCollectionRef);
+  //       const linksData = []
+  //       querySnapshot.forEach((doc) => {
+  //         const data = doc.data();
+  //         const user = auth.currentUser;
+  //         if (data.userId === user.uid) {
+  //           linksData.push(data)
+  //         }
+  //       })
+  //       setLinksList(linksData)
+  //     } catch (error) {
+  //       setIsLoading(false);
+  //     }
+  //   }
+  //   fetchLinks()
+  // }, [setIsLoading, linksCollectionRef])
 
   return (
     <>
@@ -78,7 +78,7 @@ function Details() {
             <div className="">
             <p className='text-[22px] font-bold italic text-center pb-1'>{personal.title}</p>
             </div>
-           <div className="flex justify-around p-2 mb-2 ">
+           <div className="flex justify-around  items-center p-2 mb-2 ">
            <p className='flex p-2'> <MdMail /> 
            <p className='mt-[-4px] pl-2'>{personal.email}</p>
            </p>
@@ -98,7 +98,7 @@ function Details() {
       )}
     </div>
 
-    <div className="">
+    {/* <div className="">
   {linksList.map((link, index) => (
     <div className="flex justify-around" key={`${link.uid}-${index}`}>
       {link.linkedin && (
@@ -127,7 +127,7 @@ function Details() {
       )}
     </div>
   ))}
-</div>
+</div> */}
 
      
   </>
