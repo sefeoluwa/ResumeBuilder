@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { GiSkills } from 'react-icons/gi' 
@@ -6,7 +5,7 @@ import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd  } from 'react-icons/gr'
 import { FaCheck } from 'react-icons/fa'
 import { useState, useContext } from 'react'
-import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc, where, query } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import DataContext from '../Context'
 
@@ -23,22 +22,21 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
     try {
       const user = auth.currentUser;
       if (user) {
-        const querySnapshot = await getDocs(skillsCollectionRef);
+        // Query the skills collection with a condition to fetch only the skills of the current user
+        const querySnapshot = await getDocs(query(collection(skillsCollectionRef, where('userId', '==', user.uid))));
         const skillsData = [];
-  
+      
         querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.userId === user.uid) {
-            skillsData.push(data);
-          }
+          skillsData.push(doc.data());
         });
   
         // Check if the user has existing skills data
         const existingSkillsData = skillsData.find((data) => data.userId === user.uid);
   
-        if (existingSkillsData) {
+        if(existingSkillsData) {
           // Update the existing document
           await updateDoc(doc(skillsCollectionRef, existingSkillsData.docId), {
+            userId: user.uid,
             skill: skillData.skill,
             subSkill: skillData.subSkill,
           });
@@ -68,7 +66,7 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
     <div className="mt-4">
     <form action="" onSubmit={(e) => {
   e.preventDefault(); 
-  handleSave(); 
+  handleSave(skillData); 
 }}>
        <div className="flex flex-col gap-2">
       <label htmlFor="skill">Skill 
