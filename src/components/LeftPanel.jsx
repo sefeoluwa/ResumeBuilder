@@ -17,7 +17,7 @@ function LeftPanel({ onContentButtonClick, onCustomizeButtonClick }) {
 
 
   return (
-    <div className='flex flex-col justify-between h-[15vh] p-2 ml-6  w-[10vw] bg-secondary font-bold'>
+    <div className='flex flex-col justify-between h-[130px] p-3 ml-6  w-[170px] bg-secondary font-bold'>
       <button
         className={`flex flex-col items-center rounded-[10px] ${activeButton === 'content' ? 'bg-primary' : ''}`}
         onClick={() => handleButtonClick('content')}
