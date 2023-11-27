@@ -4,14 +4,14 @@ import { GiSkills } from 'react-icons/gi'
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd  } from 'react-icons/gr'
 import { FaCheck } from 'react-icons/fa'
-import { useState, useContext } from 'react'
-import { collection, addDoc, getDocs, updateDoc, doc, where, query } from 'firebase/firestore';
+import { useState, useContext, useEffect } from 'react'
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import DataContext from '../Context'
 
 const SkillForm = ({ onSaveSkill, onClose }) => {
 
-  const { skillData, handleSkillChange} = useContext(DataContext)
+  const { skillData, setSkillData, handleSkillChange} = useContext(DataContext)
 
   const skillsCollectionRef = collection(db, 'skills'); 
 
@@ -19,40 +19,34 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
     onSaveSkill(skillData);
     onClose();
   
+
     try {
-      const user = auth.currentUser;
+      const user = auth.currentUser; 
       if (user) {
-        // Query the skills collection with a condition to fetch only the skills of the current user
-        const querySnapshot = await getDocs(query(collection(skillsCollectionRef, where('userId', '==', user.uid))));
-        const skillsData = [];
-      
-        querySnapshot.forEach((doc) => {
-          skillsData.push(doc.data());
+        const docRef = await addDoc(skillsCollectionRef, {
+          userId: user.uid,
+          skill: skillData.skill,
+          subSkill: skillData.subSkill,
         });
-  
-        // Check if the user has existing skills data
-        const existingSkillsData = skillsData.find((data) => data.userId === user.uid);
-  
-        if(existingSkillsData) {
-          // Update the existing document
-          await updateDoc(doc(skillsCollectionRef, existingSkillsData.docId), {
-            userId: user.uid,
-            skill: skillData.skill,
-            subSkill: skillData.subSkill,
-          });
-        } else {
-          // Create a new document since user data does not exist
-          await addDoc(skillsCollectionRef, {
-            userId: user.uid,
-            skill: skillData.skill,
-            subSkill: skillData.subSkill,
-          });
-        }
+        setSkillData({
+          skill: '',
+          subSkill: '',
+        });
       }
     } catch (error) {
-      console.error('Error saving skills data: ', error);
+      console.error('Error adding skill data: ', error);
     }
   };
+  useEffect(() => {
+    const fetchSkills = async () => {
+      const querySnapshot = await getDocs(skillsCollectionRef);
+      const skillsData = [];
+      querySnapshot.forEach((doc) => {
+        skillsData.push(doc.data());
+      });
+    };
+    fetchSkills();
+  }, [skillsCollectionRef]);
   
 
 
