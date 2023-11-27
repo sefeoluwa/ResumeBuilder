@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
-// import { AiFillLinkedin, AiFillGithub, AiFillTwitterCircle } from 'react-icons/ai'
-import { MdMail, MdPhone, MdHouse } from 'react-icons/md'
-// import {FaLocationArrow} from 'react-icons/fa6'
+
 import   loader  from '/src/assets/loader.gif'
 
 function Details() {
@@ -13,9 +11,6 @@ function Details() {
   const personalCollectionRef = collection(db, 'personalDetails');
 
   const [isLoading, setIsLoading] = useState(true); 
-
-  // const linksCollectionRef = collection(db, 'links')
-  // const [linksList, setLinksList] = useState([])
 
   useEffect(() => {
       const queryPersonalDetails = async () => {
