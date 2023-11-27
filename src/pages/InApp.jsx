@@ -43,7 +43,7 @@ function InApp({ isAuth }) {
           {activeSection === 'customize' && <Customize />}
         </div>
       </div>
-     <div className="resume m-7 border-solid border-[4px] flex justify-center items-center">
+     <div className="resume  m-7 border-solid border-[4px] h-fit flex justify-center items-center">
      <Resume />
      </div>
      </DataProvider>
