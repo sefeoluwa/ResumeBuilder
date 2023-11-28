@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../firebase-config';
+import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import   loader  from '/src/assets/loader.gif'
 
@@ -15,8 +15,13 @@ useEffect(() => {
       const querySnapshot = await getDocs(eduCollectionRef)
       const eduData = []
       querySnapshot.forEach((doc) => {
-        eduData.push(doc.data())
-      })
+        const data = doc.data();
+        const user = auth.currentUser;
+        if (data.userId === user.uid) {
+          eduData.push(data)
+        }
+      });
+       
       setEducation(eduData)
     } catch (error) {
       console.error('Error fetching education data: ', error);
