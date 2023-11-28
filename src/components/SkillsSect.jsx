@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../firebase-config';
+import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import   loader  from '/src/assets/loader.gif'
 
@@ -7,14 +7,21 @@ function SkillsSect() {
   const [skills, setSkills] = useState([]);
   const [isLoading, setIsLoading] = useState(true); 
   const skillsCollectionRef = collection(db, 'skills'); 
+
   useEffect(() => {
     const fetchSkills = async () => {
       try {
         const querySnapshot = await getDocs(skillsCollectionRef);
         const skillsData = [];
         querySnapshot.forEach((doc) => {
-          skillsData.push(doc.data());
+         const data = doc.data();
+         const user = auth.currentUser;
+          if (data.userId === user.uid) {
+            skillsData.push(data);
+          }
         });
+
+
         setSkills(skillsData);
       } catch (error) {
         console.error('Error fetching skills data: ', error);
