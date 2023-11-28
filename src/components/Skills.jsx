@@ -5,7 +5,7 @@ import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd  } from 'react-icons/gr'
 import { FaCheck } from 'react-icons/fa'
 import { useState, useContext, useEffect } from 'react'
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import DataContext from '../Context'
 
@@ -15,39 +15,40 @@ const SkillForm = ({ onSaveSkill, onClose }) => {
 
   const skillsCollectionRef = collection(db, 'skills'); 
 
-  const handleSave = async (skillData) => {
-    onSaveSkill(skillData);
+  const handleSave = async () => {
+    onSaveSkill(skillData)
     onClose();
-  
 
     try {
-      const user = auth.currentUser; 
+      const user = auth.currentUser;
       if (user) {
-        const docRef = await addDoc(skillsCollectionRef, {
-          userId: user.uid,
-          skill: skillData.skill,
-          subSkill: skillData.subSkill,
+        const querySnapshot = await getDocs(skillsCollectionRef)
+        let existingSkillId = null;
+        
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          if (data.userId === user.uid) {
+            existingSkillId = doc.id
+          }
         });
-        setSkillData({
-          skill: '',
-          subSkill: '',
-        });
+
+        if (existingSkillId) {
+          await updateDoc(doc(skillsCollectionRef, existingSkillId), {
+            skill: skillData.skill,
+            subSkill: skillData.subSkill,
+          });
+        } else {
+          await addDoc(skillsCollectionRef, {
+            userId: user.uid,
+            skill: skillData.skill,
+            subSkill: skillData.subSkill,
+          });
+        }
       }
     } catch (error) {
-      console.error('Error adding skill data: ', error);
+      console.error('Error saving skills data: ', error);
     }
-  };
-  useEffect(() => {
-    const fetchSkills = async () => {
-      const querySnapshot = await getDocs(skillsCollectionRef);
-      const skillsData = [];
-      querySnapshot.forEach((doc) => {
-        skillsData.push(doc.data());
-      });
-    };
-    fetchSkills();
-  }, [skillsCollectionRef]);
-  
+  }
 
 
   const handleCancel = () => {
