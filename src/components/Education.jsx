@@ -161,6 +161,14 @@ const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
   )
 }
 
+const EduData = () => {
+  return (
+    <>
+    
+    </>
+  )
+}
+
 const EducationCard = () => {
  
  const { showEducationForm, setShowEducationForm, handleSaveEducation } = useContext(DataContext) 
@@ -215,7 +223,12 @@ function Education() {
 
       <VscTriangleDown className='' />
     </button>
-    {eduCardVisible && <EducationCard /> }
+    {eduCardVisible && (
+      <>
+      <EduData />
+       <EducationCard /> 
+      </>
+    ) }
     </div>
   )
 }
