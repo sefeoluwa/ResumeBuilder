@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../firebase-config';
+import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import   loader  from '/src/assets/loader.gif'
 
@@ -15,7 +15,11 @@ const ProjectsSect = () => {
         const querySnapshot = await getDocs(projectsCollectionRef)
         const projectsData = []
         querySnapshot.forEach((doc) => {
-          projectsData.push(doc.data())
+        const data = doc.data();
+        const user = auth.currentUser;
+        if (data.userId === user.uid) {
+          projectsData.push(data)
+        }
         })
         setProjects(projectsData)
       } catch (error) {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { db } from '../firebase-config';
+import { db, auth } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
 import   loader  from '/src/assets/loader.gif'
 
@@ -15,7 +15,12 @@ useEffect(() => {
       const querySnapshot = await getDocs(expCollectionRef)
       const experienceData = []
       querySnapshot.forEach((doc) => {
-        experienceData.push(doc.data())
+        const data = doc.data();
+        const user = auth.currentUser;
+        if (data.userId === user.uid) {
+          experienceData.push(data)
+        }
+
       })
       setExperience(experienceData)
     } catch (error) {
