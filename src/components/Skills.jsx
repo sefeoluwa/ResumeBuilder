@@ -11,7 +11,7 @@ import DataContext from '../Context'
 
 const SkillForm = ({ onSaveSkill, onClose }) => {
 
-  const { skillData, setSkillData, handleSkillChange} = useContext(DataContext)
+  const { skillData, handleSkillChange} = useContext(DataContext)
 
   const skillsCollectionRef = collection(db, 'skills'); 
 
@@ -134,6 +134,40 @@ const SkillsCard = () => {
   )
 }
 
+// Render skill tags and make them deleteable from db
+const OldSkills = () => {
+  const [skills, setSkills] = useState([]);
+  const skillsCollectionRef = collection(db, 'skills'); 
+  useEffect(() => {
+    const fetchSkills = async () => {
+      try {
+        const querySnapshot = await getDocs(skillsCollectionRef);
+        const skillsData = [];
+        querySnapshot.forEach((doc) => {
+         const data = doc.data();
+         const user = auth.currentUser;
+          if (data.userId === user.uid) {
+            skillsData.push(data);
+          }
+        });
+        setSkills(skillsData);
+      } catch (error) {
+        console.error('Error fetching skills data: ', error);
+      }
+    }
+    fetchSkills()
+  })
+
+  return (
+    <div className="">
+      {skills.map((skill) => (
+        <h2 key={skill.skill}>{skill.skill}</h2>
+      ))}
+    </div>
+  )
+}
+
+
 const Skills = () => {
   const [skillsCardVisible, setSkillsCardVisible] = useState(false)
 
@@ -161,7 +195,12 @@ const Skills = () => {
      <VscTriangleDown className='' />
    </button>
 
-   {skillsCardVisible && <SkillsCard />}
+   {skillsCardVisible && 
+   <div className="">
+    <OldSkills />
+    <SkillsCard />
+   </div>
+   }
     </div>
    
   )
