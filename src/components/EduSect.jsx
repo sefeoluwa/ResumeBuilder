@@ -21,7 +21,7 @@ useEffect(() => {
           eduData.push(data)
         }
       });
-       
+
       setEducation(eduData)
     } catch (error) {
       console.error('Error fetching education data: ', error);
@@ -43,7 +43,7 @@ useEffect(() => {
        </div>
     ) : (
       education.map((edu, index) => (
-        <div className="mb-5" key={`${edu.education}-${index}`}>
+        <div className="mb-5" key={`${edu.degree}-${index}`}>
          <div className="flex gap-3">
            <div className="w-[35%]">
               <div className="flex gap-1">
