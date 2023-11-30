@@ -136,7 +136,7 @@ const SkillsCard = () => {
 }
 
 // Render skill tags and make them deleteable from db
-const OldSkills = () => {
+const SkillsData = () => {
   const [skills, setSkills] = useState([]);
   const skillsCollectionRef = collection(db, 'skills'); 
   useEffect(() => {
@@ -216,7 +216,7 @@ const Skills = () => {
 
    {skillsCardVisible && 
    <div className="">
-    <OldSkills />
+    <SkillsData />
     <SkillsCard />
    </div>
    }
