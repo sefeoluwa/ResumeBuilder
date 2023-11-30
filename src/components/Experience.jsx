@@ -1,17 +1,17 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { VscTriangleDown } from 'react-icons/vsc'
 import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
+import { FaDeleteLeft } from "react-icons/fa6";
 import { useState, useContext, useEffect } from 'react'
-import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import DataContext from '../Context';
 
 
-const ExperienceForm = ({ onSaveExperience, onClose, isAuth }) => {
+const ExperienceForm = ({ onSaveExperience, onClose }) => {
   const { experienceData, handleExpChange } = useContext(DataContext)
   const expCollectionRef = collection(db, 'experience')
 
@@ -182,9 +182,6 @@ const ExperienceSection = () => {
     setShowExperienceForm(false);
   };
 
-
-
-
   return (
     <div className=''>
     <div className="flex justify-center">
@@ -200,7 +197,62 @@ const ExperienceSection = () => {
   )
 }
 
-function Experience() {
+const ExpData = () => {
+
+  const [experience, setExperience] = useState([])
+  const expCollectionRef = collection(db, 'experience')
+
+  useEffect(() => {
+    const fetchExp = async () => {
+      try {
+        const querySnapshot = await getDocs(expCollectionRef)
+        const experienceData = []
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const user = auth.currentUser;
+          if (data.userId === user.uid) {
+          experienceData.push({...data, id: doc.id})
+          }
+  
+        })
+        setExperience(experienceData)
+      } catch (error) {
+        console.error('Error fetching experience data: ', error);
+      }
+    }
+    fetchExp()
+  }, [expCollectionRef])
+
+  const deleteData = async (id) => {
+    try {
+      const dataDoc = doc(db, 'experience', id)
+      await deleteDoc(dataDoc)
+    } catch (error) {
+      console.error('Error adding Experience data', error);
+    }
+  }
+
+    return (
+      <>
+      <div className="flex gap-5 flex-col p-5">
+      {experience.map((exp, index) => (
+        <div className="bg-primary rounded-[10px] p-2.5 flex justify-between" key={`${exp.role}-${index}`} >
+          <h2 >{exp.role}</h2>
+          <button className=' flex justify-center items-center' onClick={() => {deleteData(exp.id)}}>
+            <FaDeleteLeft 
+              style={{
+              height: '25px',
+              width: '25px'
+            }}/>
+          </button>
+        </div>
+      ))}
+    </div>
+      </>
+    );
+  }
+
+  function Experience() {
   const [expCardVisible, setExpCardVisible] = useState(false);
 
   const handleArrowBtnClick = () => {
@@ -226,7 +278,13 @@ function Experience() {
         <VscTriangleDown className="" />
       </button>
 
-      {expCardVisible && <ExperienceSection />} 
+      {expCardVisible && 
+      <>
+        <ExpData />
+        <ExperienceSection />
+
+      </>
+      } 
     </div>
   );
 }
