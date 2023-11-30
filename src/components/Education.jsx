@@ -1,15 +1,15 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { FaGraduationCap, FaCheck } from 'react-icons/fa'
 import { VscTriangleDown } from 'react-icons/vsc'
 import { GrAdd } from 'react-icons/gr'
-import { useState, useContext } from 'react'
-import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { FaDeleteLeft } from "react-icons/fa6";
+import { useState, useContext, useEffect } from 'react'
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import DataContext from '../Context'
 
-const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
+const EducationForm = ({ onSaveEducation, onClose }) => {
 
   const { educationData, handleEduChange } = useContext(DataContext)
 
@@ -162,9 +162,55 @@ const EducationForm = ({ onSaveEducation, onClose, isAuth }) => {
 }
 
 const EduData = () => {
+  const [education, setEducation] = useState([])
+  const eduCollectionRef = collection(db, 'education')
+
+  useEffect(() => {
+    const fetchEducation = async () => {
+      try {
+        const querySnapshot = await getDocs(eduCollectionRef)
+        const eduData = []
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          const user = auth.currentUser;
+          if (data.userId === user.uid) {
+            eduData.push({...data, id: doc.id})
+          }
+        });
+  
+        setEducation(eduData)
+      } catch (error) {
+        console.error('Error fetching education data: ', error);
+    }
+  }
+    fetchEducation()
+  }, [eduCollectionRef])
+
+  const deleteData =  async(id) => {
+    try {
+      const dataDoc = doc(db, 'education', id);
+      await deleteDoc(dataDoc)
+    } catch (error) {
+      console.error('Error adding Education data', error);
+    }
+  }
+  
   return (
     <>
-    
+    <div className="flex gap-5 flex-col p-5">
+      {education.map((edu, index) => (
+        <div className="bg-primary rounded-[10px] p-2.5 flex justify-between" key={`${edu.degree}-${index}`} >
+          <h2 >{edu.degree}</h2>
+          <button className=' flex justify-center items-center' onClick={() => {deleteData(edu.id)}}>
+            <FaDeleteLeft 
+              style={{
+              height: '25px',
+              width: '25px'
+            }}/>
+          </button>
+        </div>
+      ))}
+    </div>
     </>
   )
 }
