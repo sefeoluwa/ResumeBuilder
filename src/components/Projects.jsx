@@ -1,18 +1,18 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/prop-types */
 import { VscTriangleDown } from 'react-icons/vsc'
 import { FaBriefcase, FaCheck } from 'react-icons/fa'
 import { GrAdd } from 'react-icons/gr';
+import { FaDeleteLeft } from "react-icons/fa6";
 import { useContext, useState, useEffect } from 'react';
 import DataContext from '../Context';
-import { collection, addDoc, getDocs, doc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 
 
 
-const ProjectsForm = ({ onSaveProjects, onClose, isAuth }) => {
+const ProjectsForm = ({ onSaveProjects, onClose }) => {
 const { projectsData, handleProjectChange } = useContext(DataContext)
 
 const projectsCollectionRef = collection(db, 'projects')
@@ -180,6 +180,61 @@ const { projects, showProjectsForm, setShowProjectsForm, handleSaveProjects } = 
   )
 }
 
+const ProjectsData = () => {
+  
+  const projectsCollectionRef = collection(db, 'projects')
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(projectsCollectionRef)
+        const projectsData = []
+        querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const user = auth.currentUser;
+        if (data.userId === user.uid) {
+          projectsData.push({...data, id: doc.id})
+        }
+        })
+        setProjects(projectsData)
+      } catch (error) {
+        console.error('Error fetching projects data: ', error);
+      }
+    }
+    fetchProjects()
+  }, [projectsCollectionRef])
+
+  const deleteData = async (id) => {
+    try {
+      const dataDoc = doc(db, 'projects', id);
+      await deleteDoc(dataDoc)
+    } catch (error) {
+      console.error('Error adding Education data', error);
+    }
+  }
+  
+  return(
+    <>
+    <div className="flex gap-5 flex-col p-5">
+      {projects.map((project, index) => (
+        <div className="bg-primary rounded-[10px] p-2.5 flex justify-between" key={`${project.projectName}-${index}`} >
+          <h2 >{project.projectName}</h2>
+          <button className=' flex justify-center items-center' onClick={() => {deleteData(project.id)}}>
+            <FaDeleteLeft 
+              style={{
+              height: '25px',
+              width: '25px'
+            }}/>
+          </button>
+        </div>
+      ))}
+    </div>
+    </>
+)
+
+}
+
 function Projects() {
   const [expCardVisible, setExpCardVisible] = useState(false);
 
@@ -206,7 +261,12 @@ function Projects() {
         <VscTriangleDown className="" />
       </button>
 
-      {expCardVisible && <ProjectsSection />} 
+      {expCardVisible && 
+      <>
+      <ProjectsData />
+      <ProjectsSection />
+      </>
+      } 
     </div>
   );
 }
