@@ -2,10 +2,11 @@
 /* eslint-disable react/prop-types */
 import { GiSkills } from 'react-icons/gi' 
 import { VscTriangleDown } from 'react-icons/vsc'
+import { FaDeleteLeft } from "react-icons/fa6";
 import { GrAdd  } from 'react-icons/gr'
 import { FaCheck } from 'react-icons/fa'
 import { useState, useContext, useEffect } from 'react'
-import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase-config';
 import DataContext from '../Context'
 
@@ -147,7 +148,7 @@ const OldSkills = () => {
          const data = doc.data();
          const user = auth.currentUser;
           if (data.userId === user.uid) {
-            skillsData.push(data);
+            skillsData.push({ ...data, id: doc.id });
           }
         });
         setSkills(skillsData);
@@ -158,10 +159,28 @@ const OldSkills = () => {
     fetchSkills()
   })
 
+  const deleteData = async (id) => {
+    try {
+      const dataDoc = doc(db, 'skills', id);
+      await deleteDoc(dataDoc);
+    } catch (error) {
+      console.error('Error deleting skills data: ', error);
+    }
+  }
+
   return (
-    <div className="">
-      {skills.map((skill) => (
-        <h2 key={skill.skill}>{skill.skill}</h2>
+    <div className="flex gap-5 flex-col p-5">
+      {skills.map((skill, index) => (
+        <div key={`${skill.skill}-${index}`}className="bg-primary rounded-[10px] p-2.5 flex justify-between">
+          <h2 >{skill.skill}</h2>
+          <button className=' flex justify-center items-center' onClick={() => {deleteData(skill.id)}}>
+            <FaDeleteLeft 
+              style={{
+              height: '25px',
+              width: '25px'
+            }}/>
+          </button>
+        </div>
       ))}
     </div>
   )
