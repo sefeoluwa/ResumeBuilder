@@ -171,7 +171,7 @@ const SkillsData = () => {
   return (
     <div className="flex gap-5 flex-col p-5">
       {skills.map((skill, index) => (
-        <div key={`${skill.skill}-${index}`}className="bg-primary rounded-[10px] p-2.5 flex justify-between">
+        <div key={`${skill.skill}-${index}`} className="bg-primary rounded-[10px] p-2.5 flex justify-between">
           <h2 >{skill.skill}</h2>
           <button className=' flex justify-center items-center' onClick={() => {deleteData(skill.id)}}>
             <FaDeleteLeft 
