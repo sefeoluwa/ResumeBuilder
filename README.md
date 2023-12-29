@@ -1,4 +1,6 @@
 # ProFolio - Your Personal Resume Maker
+![Screenshot from 2023-12-29 17-36-23](https://github.com/sefeoluwa/ResumeBuilder/assets/104764597/7ce2ccca-3c7e-4859-8419-9d233bdd18d0)
+
 Welcome to ProFolio, your go-to app for crafting professional resumes effortlessly! ProFolio is designed to simplify the resume-building process, enabling users to create polished resumes and download them with ease.
 
 ## Features
